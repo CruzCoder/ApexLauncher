@@ -206,7 +206,7 @@
     <string name="arc_capes_title">Kápě z Cosmeticy</string>
     <string name="arc_capes_desc">Zapne kápě z Cosmeticy (dříve Arc) Pro více informací navštivte https://cosmetica.cc. Vyžaduje OptiFine.</string>
     <string name="notif_channel_name">Všeobecné</string>
-    <string name="lazy_service_default_title">Služba Popředí Pojavu</string>
+    <string name="lazy_service_default_title">Služba Popředí Apexu</string>
     <string name="mcl_setting_veroption_installed">Nainstalováno</string>
     <string name="use_global_default">(Užít globální výchozí nastavení)</string>
     <string name="default_control">Výchozí ovládání</string>
@@ -293,7 +293,7 @@
     <string name="modpack_download_downloading_mods">Stahování módů (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Stahování módů (Soubor %d z %d)</string>
     <string name="modpack_download_applying_overrides">Provádení přepisů (%d/%d)</string>
-    <string name="modpack_install_notification_title">Instalátor Modpacků Pojavu</string>
+    <string name="modpack_install_notification_title">Instalátor Modpacků Apexu</string>
     <string name="modpack_install_notification_success">Klikněte zde k dokončení instalace modpacku</string>
     <string name="modpack_install_notification_data_not_available">Stahování informací načítače módů selhalo</string>
     <string name="modpack_install_modloader_download_failed">Stahování souborů načítače módů selhalo</string>

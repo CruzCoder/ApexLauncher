@@ -196,3 +196,31 @@ landscape.
    transition from the recent row into the hero.
 4. **Light/"day" variant** of the palette (tokens are already centralised).
 5. **Settings redesign** to match (currently inherits the accent only).
+
+---
+
+## 8. Identity: the Apex Launcher rename
+
+The app is fully renamed to **Apex Launcher** in everything a user can see or export.
+
+### Changed
+
+| Surface | Where |
+|---|---|
+| App label, launcher shortcut, recents, task switcher | `res/values/strings.xml` → `app_name`, `app_short_name` (52 locales, no English fallback left showing the old name) |
+| Notification titles (foreground service, modpack installer) | `lazy_service_default_title`, `modpack_install_notification_title` — base + all locales |
+| Crash dialog and crash report header | `error_fatal` strings, `PojavApplication` (`Tools.APP_NAME + " crash report"`), logcat tag `ApexCrashReport` |
+| Game data folder | `games/ApexLauncher` (`Tools.GAME_FOLDER_NAME`), with automatic fallback to a pre-existing `games/PojavLauncher` so worlds/instances survive an upgrade |
+| Runtime references in profiles | new `apex://<runtime>` scheme (`Tools.LAUNCHERPROFILES_RTPREFIX`); legacy `pojav://` is still parsed (`Tools.LEGACY_LAUNCHERPROFILES_RTPREFIX`, `Tools.getRuntimeName`, `Tools.isRuntimeReference`) |
+| In-game gamepad name | "Apex XBOX 360 compatible gamepad" (`jre_lwjgl3glfw/.../GLFW.java`) |
+| Renderer init log | `ApexRendererInit: …` |
+| About screen | `assets/about_en.txt` — Apex Launcher first, upstream credited |
+| Repo docs & CI | `README.md`, `APEX_REDESIGN.md`, workflow name `Apex Launcher CI`, artifacts `apex-debug`, `apex-debug-noruntime`, `apex-release-aab`, issue-template paths |
+
+### Intentionally NOT renamed (and why)
+
+| Kept | Reason |
+|---|---|
+| Java package `net.kdt.pojavlaunch`, class names `PojavApplication` / `PojavProfile` / `PojavRendererInit` | The C layer binds to them by symbol name (`Java_net_kdt_pojavlaunch_utils_JREUtils_*`, `FindClass("net/kdt/pojavlaunch/MainActivity")`). Renaming needs a matching rename of every JNI symbol — do it as its own change, with a build. |
+| `applicationId net.kdt.pojavlaunch` | Keeps the update path from an existing install; changing it makes the app a separate install (fresh data, no upgrade). Flip it in `app_pojavlauncher/build.gradle` (`applicationId` + the three `resValue` lines) when a clean identity is wanted. |
+| `POJAV_*` environment variables, `pojav_environ`, `pojavRendererName` JSON key | Part of the native/on-disk contract shared with the bundled JRE, LWJGL shim and existing `launcher_profiles.json`. |

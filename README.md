@@ -2,143 +2,97 @@
 
 <img src="design/preview/apex-home-landscape.png" alt="Apex Launcher home screen" width="100%">
 
-**Apex Launcher** is a fork of [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)
-with a completely redesigned interface (**"Aurora Glass"**: landscape-first home screen, glass
-cards, hero instance card, navigation rail, recently-played list) and a rebranded identity.
+**Apex Launcher** runs *Minecraft: Java Edition* on Android, with a redesigned landscape-first
+interface (**"Aurora Glass"**), and the full capabilities of the launcher it is built on:
+OpenJDK 8/17/21 runtimes, Forge/Fabric/Quilt/OptiFine installers, Modrinth & CurseForge modpacks,
+and a complete on-screen control editor.
 
-* Upstream project: PojavLauncher v3_openjdk — **discontinued**, see its successor
-  [Amethyst-Android](https://github.com/AngelAuraMC/Amethyst-Android).
-* License: **LGPLv3** (see `LICENSE`), original work by the PojavLauncher team and contributors.
-* Design notes and implementation status: [`APEX_REDESIGN.md`](APEX_REDESIGN.md)
-* Repository analysis: [`REPO_ANALYSIS.md`](REPO_ANALYSIS.md)
+Apex Launcher is a fork of [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)
+(v3_openjdk), which is **discontinued** upstream — its successor is
+[Amethyst-Android](https://github.com/AngelAuraMC/Amethyst-Android). The fork keeps the whole
+engine and rebuilds the launcher experience on top of it.
+
+* License: **LGPLv3** (see [`LICENSE`](LICENSE)), original work by the PojavLauncher team and contributors.
+* Design notes & implementation status: [`APEX_REDESIGN.md`](APEX_REDESIGN.md)
+* Repository analysis & architecture map: [`REPO_ANALYSIS.md`](REPO_ANALYSIS.md)
 
 Apex Launcher is not affiliated with Mojang or Microsoft. "Minecraft" is a trademark of
-Mojang Synergies AB.
+Mojang Synergies AB. A Microsoft account is required to play online.
 
 ---
 
-[![Android CI](https://github.com/PojavLauncherTeam/PojavLauncher/workflows/Android%20CI/badge.svg)](https://github.com/PojavLauncherTeam/PojavLauncher/actions)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PojavLauncherTeam/PojavLauncher)](https://github.com/PojavLauncherTeam/PojavLauncher/actions)
-[![Crowdin](https://badges.crowdin.net/pojavlauncher/localized.svg)](https://crowdin.com/project/pojavlauncher)
-[![Discord](https://img.shields.io/discord/724163890803638273.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.com/invite/aenk3EUvER)
-[![Twitter Follow](https://img.shields.io/twitter/follow/plaunchteam?color=blue&style=flat-square)](https://twitter.com/PLaunchTeam)
+## What's different from upstream
 
-*From [Boardwalk](https://github.com/zhuowei/Boardwalk)'s ashes here comes PojavLauncher!*
-
-PojavLauncher is a launcher that allows you to play Minecraft: Java Edition on your Android and [iOS](https://github.com/PojavLauncherTeam/PojavLauncher_iOS) devices.
-
-For more details, check out our [wiki](https://pojavlauncher.app/)!
-
-## Important Notes
-
-**PojavLauncher has been discontinued** and is no longer supported. Its successor is available [here](https://github.com/AngelAuraMC/Amethyst-Android).
-
-## Table of Contents
-
-* [Introduction](#introduction)
-* [Getting PojavLauncher](#getting-pojavlauncher)
-* [Building](#building)
-    * [Quick Build (Recommended)](#quick-build-recommended)
-    * [Detailed Build](#detailed-build)
-* [Current Status](#current-status)
-* [Known Issues](#known-issues)
-* [FAQ](#faq)
-* [Contributing](#contributing)
-* [Support](#support)
-* [License](#license)
-* [Credits & Dependencies](#credits--dependencies)
-* [Roadmap](#roadmap)
-
-## Introduction
-
-* PojavLauncher is a Minecraft: Java Edition launcher for Android and iOS based on [Boardwalk](https://github.com/zhuowei/Boardwalk)
-* This launcher can launch almost all available Minecraft versions ranging from rd-132211 to 1.21 snapshots (including Combat Test versions)
-* Modding via Forge and Fabric are also supported.
-* This repository contains source code for Android. For iOS/iPadOS, check out [PojavLauncher_iOS](https://github.com/PojavLauncherTeam/PojavLauncher_iOS).
-
-## Getting PojavLauncher
-
-You can get PojavLauncher via three methods:
-
-1. **Releases:** Download the prebuilt app from our [stable releases](https://github.com/PojavLauncherTeam/PojavLauncher/releases) or [automatic builds](https://github.com/PojavLauncherTeam/PojavLauncher/actions).
-2. **Google Play:** Get it from Google Play by clicking on this badge: [![Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=net.kdt.pojavlaunch)
-3. **Build from Source:** Follow the [building instructions](#building) below.
+| Area | Apex Launcher |
+|---|---|
+| Home screen | Landscape-first "Aurora Glass" layout: navigation rail, hero instance card with live metadata, Change version / Edit instance, session card (clock + live RAM), recently played, glass progress card |
+| Portrait | Portrait keeps the same content with a bottom navigation bar |
+| Design system | New palette, `apex_*` drawables, custom vector icon set, adaptive launcher icon |
+| Identity | App label, all shipped locales, crash reports, game folder (`games/ApexLauncher`), about text |
+| Compat | Existing installs are migrated: legacy `games/PojavLauncher` folder and `pojav://` runtime references are still read |
 
 ## Building
 
-### Quick Build (Recommended)
+### Quick build
 
-The easiest way to build PojavLauncher is to use the pre-built JREs provided by our CI.
+The fastest path uses the pre-built JREs published by the upstream CI.
 
-1. Clone the repository: `git clone https://github.com/PojavLauncherTeam/PojavLauncher.git`
-2. Build the launcher: `./gradlew :app_pojavlauncher:assembleDebug` (Use `gradlew.bat` on Windows)
+1. Clone: `git clone https://github.com/CruzCoder/ApexLauncher.git`
+2. Build: `./gradlew :app_pojavlauncher:assembleDebug` (`gradlew.bat` on Windows)
 
-The built APK will be located in `app_pojavlauncher/build/outputs/apk/debug/`.
+The APK lands in `app_pojavlauncher/build/outputs/apk/debug/`.
 
-### Detailed Build
+### Full build
 
-If you need more control over the build process, follow these steps:
+1. **Java runtime (JRE):** grab the `jre8-pojav` artifact from the
+   [upstream CI](https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/actions) into
+   `app_pojavlauncher/src/main/assets/components/jre`. JRE 17 and 21 go into `jre-new` and `jre-21`
+   as `jre17-pojav` / `jre21-pojav`. To build them yourself, see
+   [android-openjdk-build-multiarch](https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch).
+2. **LTW (optional):** the ANGLE-based `opengles3_ltw` renderer needs `ltw-release.aar` dropped into
+   `app_pojavlauncher/libs/`; without it the renderer is hidden at runtime.
+3. **Language list:** translations are auto-added upstream, so regenerate the list first:
+   ```bash
+   chmod +x scripts/languagelist_updater.sh && bash scripts/languagelist_updater.sh
+   ```
+4. **GLFW stub:** `./gradlew :jre_lwjgl3glfw:build`
+5. **Launcher:** `./gradlew :app_pojavlauncher:assembleDebug`
 
-1. **Java Runtime Environment (JRE):** Download the `jre8-pojav` artifact from our [CI auto builds](https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/actions).  This package contains pre-built JREs for all supported architectures.  If you need to build the JRE yourself, follow the instructions in the [android-openjdk-build-multiarch](https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch) repository.
+`CURSEFORGE_API_KEY` (env var or `curseforge_key.txt`) enables CurseForge modpack search;
+without it the build falls back to a dummy key and only Modrinth works.
 
-2. **LWJGL:** The build instructions for the custom LWJGL are available over the [LWJGL repository](https://github.com/PojavLauncherTeam/lwjgl3).
+## Current status
 
-3. **Language List:** Because languages are auto-added by Crowdin, you need to run the language list generator before building. In the project directory, run:
-   * Linux/macOS:
-     ```bash
-     chmod +x scripts/languagelist_updater.sh
-     bash scripts/languagelist_updater.sh
-     ```
-   * Windows:
-     ```batch
-     scripts\languagelist_updater.bat
-     ```
-
-4. **Build GLFW stub:** `./gradlew :jre_lwjgl3glfw:build`
-
-5. **Build the launcher:** `./gradlew :app_pojavlauncher:assembleDebug` (Replace `gradlew` with `gradlew.bat` on Windows).
-
-## Current Status
-
-* [x] OpenJDK 8 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] OpenJDK 17 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] OpenJDK 21 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] Headless mod installer
-* [x] Mod installer with GUI
-* [x] OpenGL in OpenJDK environment
+* [x] OpenJDK 8 / 17 / 21 mobile ports: ARM32, ARM64, x86, x86_64
+* [x] OpenGL in the OpenJDK environment (GL4ES, VirGL/Zink, optional LTW)
 * [x] OpenAL (works on most devices)
-* [x] Support for Minecraft 1.12.2 and below
-* [x] Support for Minecraft 1.13 and above
-* [x] Support for Minecraft 1.17 (22w13a) and above
-* [x] Game surface zooming
-* [x] New input pipe rewritten to native code
-* [x] Rewritten entire controls system
-* [ ] More to come!
+* [x] Mod installers: Forge (headless + GUI), Fabric, Quilt, OptiFine, Better Than Adventure
+* [x] Modpack browsing and install: Modrinth, CurseForge
+* [x] Multi-runtime manager with per-instance runtime selection
+* [x] Rewritten controls system (drawers, joysticks, gamepads, gyro) and native input pipe
+* [x] New Apex Launcher home screen (landscape + portrait)
+* [ ] More to come
 
-## Known Issues
+## Known issues
 
-See our [issue tracker](https://github.com/PojavLauncherTeam/PojavLauncher/issues) for a list of known issues and their current status.
-
-## FAQ
-
-See our [wiki](https://pojavlauncherteam.github.io/) for more information.
+The engine is inherited from a discontinued upstream, so the usual caveats apply: renderer
+compatibility varies per GPU/driver, and some devices need a specific runtime or renderer.
+Build locally and check the in-app log (`Share logs` in game) when reporting a problem.
 
 ## Contributing
 
-Contributions are welcome! We welcome any type of contribution, not only code. For example, you can help improve the [wiki](https://pojavlauncherteam.github.io/), contribute to the [translations](https://crowdin.com/project/pojavlauncher), or submit bug reports and feature requests.
-
-Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it.
-
-## Support
-
-For support, please join our [Discord server](https://discord.com/invite/aenk3EUvER).
+Bug reports and pull requests are welcome. Any change should be submitted as a PR whose
+description explains what it does and how to exercise it. UI work should follow the design
+tokens in `res/values/apex_dimens.xml`, `res/values/colors.xml` and `APEX_REDESIGN.md`.
 
 ## License
 
-PojavLauncher is licensed under [GNU LGPLv3](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE).
+Apex Launcher is licensed under [GNU LGPLv3](LICENSE), inherited from PojavLauncher.
+Upstream attribution is kept in the Credits section below and in the in-app about screen.
 
 ## Credits & Dependencies
 
+* [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) (upstream project this fork is based on): LGPLv3.
 * [Boardwalk](https://github.com/zhuowei/Boardwalk) (JVM Launcher): Unknown License/[Apache License 2.0](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE) or GNU GPLv2.
 * Android Support Libraries: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
 * [GL4ES](https://github.com/PojavLauncherTeam/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
@@ -154,13 +108,6 @@ PojavLauncher is licensed under [GNU LGPLv3](https://github.com/PojavLauncherTea
 
 ## Roadmap
 
-We are currently focusing on:
-
-* Exploring new rendering technologies.
-
-Future plans include:
-
-* Improving stability and performance.
-* Enhancing the mod installation experience.
-
-We welcome community feedback and suggestions for our roadmap.  Please feel free to open a feature request in our [issue tracker](https://github.com/PojavLauncherTeam/PojavLauncher/issues).
+* Finish the Aurora Glass treatment on the remaining screens (accounts, settings, mod browser).
+* Improve first-run flow (runtime installation without a bundled JRE).
+* Harden release automation (deterministic `versionCode`, no branch name in `versionName`).

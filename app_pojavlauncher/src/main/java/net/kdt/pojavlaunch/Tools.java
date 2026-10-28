@@ -112,7 +112,13 @@ public final class Tools {
     public static String MULTIRT_HOME;
     public static String LOCAL_RENDERER = null;
     public static int DEVICE_ARCHITECTURE;
-    public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
+    /** Scheme used in profiles to reference a custom runtime, e.g. {@code apex://Internal} */
+    public static final String LAUNCHERPROFILES_RTPREFIX = "apex://";
+    /**
+     * Scheme written by upstream PojavLauncher builds. Still honoured when reading
+     * profiles so that instances carried over from an older install keep working.
+     */
+    public static final String LEGACY_LAUNCHERPROFILES_RTPREFIX = "pojav://";
 
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
@@ -369,8 +375,9 @@ public final class Tools {
 
     public static File getGameDirPath(@NonNull MinecraftProfile minecraftProfile){
         if(minecraftProfile.gameDir != null){
-            if(minecraftProfile.gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(minecraftProfile.gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX,Tools.DIR_GAME_HOME+"/"));
+            String runtimePrefix = findRuntimePrefix(minecraftProfile.gameDir);
+            if(runtimePrefix != null)
+                return new File(minecraftProfile.gameDir.replace(runtimePrefix,Tools.DIR_GAME_HOME+"/"));
             else
                 return new File(Tools.DIR_GAME_HOME,minecraftProfile.gameDir);
         }
@@ -1241,10 +1248,31 @@ public final class Tools {
         return string != null && !string.isEmpty();
     }
 
+    /**
+     * Finds which runtime scheme a profile value uses.
+     * @return the matching prefix (current or legacy), or null if the value is not a runtime reference
+     */
+    private static String findRuntimePrefix(String value) {
+        if(value == null) return null;
+        if(value.startsWith(LAUNCHERPROFILES_RTPREFIX)) return LAUNCHERPROFILES_RTPREFIX;
+        if(value.startsWith(LEGACY_LAUNCHERPROFILES_RTPREFIX)) return LEGACY_LAUNCHERPROFILES_RTPREFIX;
+        return null;
+    }
+
+    /** @return true if the value is a runtime reference written by this or the legacy build */
+    public static boolean isRuntimeReference(String value) {
+        return findRuntimePrefix(value) != null;
+    }
+
+    /**
+     * Extracts the runtime name out of a profile reference such as {@code apex://Internal}.
+     * Accepts the legacy {@code pojav://} scheme as well.
+     * @return the bare runtime name, or null if the value is not a runtime reference
+     */
     public static String getRuntimeName(String prefixedName) {
-        if(prefixedName == null) return prefixedName;
-        if(!prefixedName.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX)) return null;
-        return prefixedName.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
+        String prefix = findRuntimePrefix(prefixedName);
+        if(prefix == null) return null;
+        return prefixedName.substring(prefix.length());
     }
 
     public static String getSelectedRuntime(MinecraftProfile minecraftProfile) {

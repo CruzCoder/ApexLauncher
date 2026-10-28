@@ -206,7 +206,7 @@
     <string name="arc_capes_title">Peleryny Cosmetica</string>
     <string name="arc_capes_desc">Aktywuje peleryny z Cosmetica (wcześniej Arc). Aby dowiedzieć się więcej, odwiedź https://cosmetica.cc. Wymaga OptiFine.</string>
     <string name="notif_channel_name">Ogólne</string>
-    <string name="lazy_service_default_title">Usługa Pojav Foreground</string>
+    <string name="lazy_service_default_title">Usługa Apex Foreground</string>
     <string name="mcl_setting_veroption_installed">Zainstalowane</string>
     <string name="use_global_default">(Użyj ustawień domyślnych)</string>
     <string name="default_control">Domyślne sterowanie</string>
@@ -293,7 +293,7 @@
     <string name="modpack_download_downloading_mods">Pobieranie modyfikacji (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Pobieranie modów (%d z %d)</string>
     <string name="modpack_download_applying_overrides">Stosowanie nadpisania (%d/%d)</string>
-    <string name="modpack_install_notification_title">Instalator paczek modów Pojav</string>
+    <string name="modpack_install_notification_title">Instalator paczek modów Apex</string>
     <string name="modpack_install_notification_success">Kliknij tutaj, aby zakończyć instalację paczki modów</string>
     <string name="modpack_install_notification_data_not_available">Nie udało się pobrać informacji o ładowarce modyfikacji</string>
     <string name="modpack_install_modloader_download_failed">Nie udało się pobrać plików ładowarki modyfikacji</string>

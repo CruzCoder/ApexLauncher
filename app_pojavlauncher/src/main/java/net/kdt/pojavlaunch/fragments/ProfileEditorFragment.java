@@ -172,9 +172,11 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
         int jvmIndex = runtimes.indexOf(new Runtime("<Default>"));
         if (mTempProfile.javaDir != null) {
-            String selectedRuntime = mTempProfile.javaDir.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
-            int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
-            if (nindex != -1) jvmIndex = nindex;
+            String selectedRuntime = Tools.getRuntimeName(mTempProfile.javaDir);
+            if (selectedRuntime != null) {
+                int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
+                if (nindex != -1) jvmIndex = nindex;
+            }
         }
         mDefaultRuntime.setAdapter(new RTSpinnerAdapter(context, runtimes));
         if(jvmIndex == -1) jvmIndex = runtimes.size() - 1;

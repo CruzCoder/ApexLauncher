@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">پوجاو لانچر (ماینکرفت: جاوا ادیشن برای اندروید)</string>
-    <string name="app_short_name">پوجاو لانچر</string>
+    <string name="app_name">اپکس لانچر (ماینکرفت: جاوا ادیشن برای اندروید)</string>
+    <string name="app_short_name">اپکس لانچر</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -14,7 +14,7 @@
     <!-- AlertDialog title -->
     <string name="alerttitle_installmod">یک نصب کننده ماد را انتخاب کنید</string>
     <!-- Error messages -->
-    <string name="error_fatal">پوجاو لانچر بصورت غیرمنتظره کرش خورد</string>
+    <string name="error_fatal">اپکس لانچر بصورت غیرمنتظره کرش خورد</string>
     <string name="error_no_version">بدون ورژن!</string>
     <string name="error_show_more">نمایش بیشتر</string>
     <string name="error_show_less">نمایش کمتر</string>
@@ -193,7 +193,7 @@
     <string name="arc_capes_title">شنل های Cosmetica</string>
     <string name="arc_capes_desc">شنل های Cosmetica (قبلاً Arc) را فعال می کند. برای اطلاعات بیشتر لطفاً به https://cosmetica.cc مراجعه کنید. به OptiFine نیاز دارد.</string>
     <string name="notif_channel_name">عمومی</string>
-    <string name="lazy_service_default_title">سرویس پیش‌زمینه Pojav</string>
+    <string name="lazy_service_default_title">سرویس پیش‌زمینه Apex</string>
     <string name="mcl_setting_veroption_installed">نصب شد</string>
     <string name="use_global_default">(از پیش‌فرض استفاده کنید)</string>
     <string name="progresslayout_tasks_in_progress">%d وظیفه در حال انجام</string>
@@ -246,7 +246,7 @@
     <string name="modpack_download_downloading_mods">درحال دانلود مادها (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">درحال دانلود ماد ها (File %d out of %d)</string>
     <string name="modpack_download_applying_overrides">اعمال جایگزین ها (%d/%d)</string>
-    <string name="modpack_install_notification_title">نصب کننده مادپک پوجاو</string>
+    <string name="modpack_install_notification_title">نصب کننده مادپک اپکس</string>
     <string name="modpack_install_notification_success">برای اتمام نصب مادپک اینجا کلیک کنید</string>
     <string name="modpack_install_notification_data_not_available">ناموفق در دانلود اطلاعات اجرا کننده ماد</string>
     <string name="modpack_install_modloader_download_failed">ناموفق در دانلود فایل‌های اجراکننده ماد</string>

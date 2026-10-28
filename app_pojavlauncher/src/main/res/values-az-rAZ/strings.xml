@@ -200,7 +200,7 @@
     <string name="arc_capes_title">Cosmetica Capes</string>
     <string name="arc_capes_desc">Cosmetica-dan (əvvəllər Arc) qapaqları işə salır. Əlavə məlumat üçün https://cosmetica.cc saytına daxil olun. OptiFine tələb edir.</string>
     <string name="notif_channel_name">Ümumi</string>
-    <string name="lazy_service_default_title">Pojav Önplan Xidməti</string>
+    <string name="lazy_service_default_title">Apex Önplan Xidməti</string>
     <string name="mcl_setting_veroption_installed">Quraşdırıldı</string>
     <string name="use_global_default">(Qlobal defoltdan istifadə edin)</string>
     <string name="default_control">Defolt controlmap</string>
@@ -286,7 +286,7 @@
     <string name="modpack_download_downloading_mods">Modlar endirilir (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Modlar endirilir (%d fayldan %d fayl)</string>
     <string name="modpack_download_applying_overrides">Ləğvetmələr tətbiq edilir (%d/%d)</string>
-    <string name="modpack_install_notification_title">Pojav Mod paket quraşdırıcısı</string>
+    <string name="modpack_install_notification_title">Apex Mod paket quraşdırıcısı</string>
     <string name="modpack_install_notification_success">Modpack quraşdırılmasını başa çatdırmaq üçün bura klikləyin</string>
     <string name="modpack_install_notification_data_not_available">Mod yükləyicisi məlumatını endirmək alınmadı</string>
     <string name="modpack_install_modloader_download_failed">Mod yükləyici fayllarını endirmək alınmadı</string>

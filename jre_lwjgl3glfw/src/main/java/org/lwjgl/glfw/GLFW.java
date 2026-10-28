@@ -1223,7 +1223,7 @@ public class GLFW
     }
     public static String glfwGetJoystickName(int jid) {
         if(jid == GLFW_JOYSTICK_1) {
-            return "Pojav XBOX 360 compatible gamepad";
+            return "Apex XBOX 360 compatible gamepad";
         }else return null;
     }
     public static FloatBuffer glfwGetJoystickAxes(int jid) {
@@ -1263,7 +1263,7 @@ public class GLFW
         return false;
     }
     public static String glfwGetGamepadName(int jid) {
-        if(jid == GLFW_JOYSTICK_1) return "Pojav XBOX 360 compatible gamepad";
+        if(jid == GLFW_JOYSTICK_1) return "Apex XBOX 360 compatible gamepad";
         else return null;
     }
     public static boolean glfwGetGamepadState(int jid, GLFWGamepadState state) {

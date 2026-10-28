@@ -201,7 +201,7 @@
     <string name="arc_capes_title">Плащі Cosmetica</string>
     <string name="arc_capes_desc">Включає плащі від Cosmetica (раніше Arc). Для більш детальної інформації, будь ласка, відвідайте https://cosmetica.cc. Потребує OptiFine.</string>
     <string name="notif_channel_name">Загальне</string>
-    <string name="lazy_service_default_title">Служба Pojav</string>
+    <string name="lazy_service_default_title">Служба Apex</string>
     <string name="mcl_setting_veroption_installed">Встановлено</string>
     <string name="use_global_default">(Використовувати за стандартом)</string>
     <string name="default_control">Стандартне керування</string>
@@ -287,7 +287,7 @@
     <string name="modpack_download_downloading_mods">Завантаження модів (%.2f Мб / %.2f Мб)</string>
     <string name="modpack_download_downloading_mods_fc">Завантаження модів (Файл %d з %d)</string>
     <string name="modpack_download_applying_overrides">Застосування перевизначень (%d/%d)</string>
-    <string name="modpack_install_notification_title">Інсталятор модпаку Pojav</string>
+    <string name="modpack_install_notification_title">Інсталятор модпаку Apex</string>
     <string name="modpack_install_notification_success">Натисніть тут, щоб завершити встановлення модпаку</string>
     <string name="modpack_install_notification_data_not_available">Не вдалося завантажити інформацію про завантажувач модів</string>
     <string name="modpack_install_modloader_download_failed">Не вдалося завантажити файли завантажувача мода</string>
