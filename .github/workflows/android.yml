@@ -10,9 +10,40 @@ on:
       - 'l10n_v3_openjdk2'
   workflow_dispatch:
 
+# ---------------------------------------------------------------------------
+# Where the bundled Java runtimes come from
+# ---------------------------------------------------------------------------
+# The runtimes are NOT stored in this repository (see .gitignore), they are
+# fetched from the CI artifacts of the community OpenJDK build repos:
+#
+#   JRE 8  -> AngelAuraMC/angelauramc-openjdk-build  branch buildjre8          artifact jre8-pojav
+#   JRE 17 -> FCL-Team/Android-OpenJDK-Build         branch Build_JRE_17       artifact jre17-multiarch
+#   JRE 21 -> FCL-Team/Android-OpenJDK-Build         branch Build_JRE_21*      artifact jre21-multiarch
+#
+# The historical source (PojavLauncherTeam/android-openjdk-build-multiarch) has
+# zero workflow runs left, so every request against it fails with
+# "no matching workflow run found with any artifacts?" - which is what used to
+# break this pipeline at the very first runtime step.
+# All three repos ship the Pojav binpack layout the launcher expects
+# (universal.tar.xz + bin-{arm,arm64,x86,x86_64}.tar.xz + version), built from
+# OpenJDK with the Android/AWT patch set applied.
+#
+# Only JRE 8 is mandatory. The launcher tolerates a missing jre-new / jre-21
+# (NewJREUtil.checkInternalRuntime, AsyncAssetManager.unpackRuntime), it simply
+# cannot start Minecraft versions that require Java 17/21 until such a runtime
+# is installed by the user. GitHub expires workflow artifacts after ~90 days,
+# so the 17/21 steps are best-effort with fallbacks and never fail the build.
+# ---------------------------------------------------------------------------
+
+env:
+  JRE_DIR: app_pojavlauncher/src/main/assets/components/jre
+  JRE17_DIR: app_pojavlauncher/src/main/assets/components/jre-new
+  JRE21_DIR: app_pojavlauncher/src/main/assets/components/jre-21
+
 jobs:
   build:
     runs-on: ubuntu-22.04
+    timeout-minutes: 180
     env:
       GPLAY_KEYSTORE_PASSWORD: ${{ secrets.GPLAY_KEYSTORE_PASSWORD }}
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
@@ -23,61 +54,126 @@ jobs:
           submodules: "recursive"
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
 
       - name: Get LTW
         run: |
-          apt update && apt install wget
           cd app_pojavlauncher/libs
-          wget https://github.com/PojavLauncherTeam/LTW/releases/latest/download/ltw-release.aar
+          curl -fL --retry 3 -o ltw-release.aar \
+            https://github.com/PojavLauncherTeam/LTW/releases/latest/download/ltw-release.aar
+          ls -l ltw-release.aar
 
       - name: Get JRE 8
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre
+          path: ${{ env.JRE_DIR }}
           workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
+          repo: AngelAuraMC/angelauramc-openjdk-build
           branch: buildjre8
           name: jre8-pojav
 
-      - name: Get JRE17
+      - name: Check JRE 8 binpack
+        run: |
+          ls -l "$JRE_DIR"
+          test -f "$JRE_DIR/universal.tar.xz" || { echo "::error::JRE 8 binpack has no universal.tar.xz"; exit 1; }
+          test -f "$JRE_DIR/version" || { echo "::error::JRE 8 binpack has no version file"; exit 1; }
+          echo "JRE 8 version: $(cat "$JRE_DIR/version")"
+
+      - name: Get JRE 17 (FCL)
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre-new
+          path: ${{ env.JRE17_DIR }}
           workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
+          repo: FCL-Team/Android-OpenJDK-Build
+          branch: Build_JRE_17
+          name: jre17-multiarch
+
+      - name: JRE 17 present?
+        id: has_jre17
+        run: |
+          if [ -f "$JRE17_DIR/universal.tar.xz" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            rm -rf "$JRE17_DIR"
+          fi
+
+      - name: Get JRE 17 (AngelAuraMC fallback)
+        if: steps.has_jre17.outputs.found != 'true'
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          workflow: build.yml
+          path: ${{ env.JRE17_DIR }}
+          workflow_conclusion: completed
+          repo: AngelAuraMC/angelauramc-openjdk-build
           branch: buildjre17-21
           name: jre17-pojav
 
-      - name: Get JRE21
+      - name: Get JRE 21 (FCL 21.0.12.1)
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre-21
+          path: ${{ env.JRE21_DIR }}
           workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre17-21
-          name: jre21-pojav
+          repo: FCL-Team/Android-OpenJDK-Build
+          branch: Build_JRE_21.0.12.1
+          name: jre21-multiarch
+
+      - name: JRE 21 present?
+        id: has_jre21
+        run: |
+          if [ -f "$JRE21_DIR/universal.tar.xz" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            rm -rf "$JRE21_DIR"
+          fi
+
+      - name: Get JRE 21 (FCL 21 fallback)
+        if: steps.has_jre21.outputs.found != 'true'
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          workflow: build.yml
+          path: ${{ env.JRE21_DIR }}
+          workflow_conclusion: success
+          repo: FCL-Team/Android-OpenJDK-Build
+          branch: Build_JRE_21
+          name: jre21-multiarch
+
+      - name: Report bundled runtimes
+        if: ${{ !cancelled() }}
+        run: |
+          for d in "$JRE_DIR" "$JRE17_DIR" "$JRE21_DIR"; do
+            if [ -f "$d/universal.tar.xz" ] && [ -f "$d/version" ]; then
+              echo "OK       $d (version $(cat "$d/version"))"
+              ls -l "$d"
+            else
+              echo "MISSING  $d - building without it, Minecraft needing this runtime will not launch"
+              rm -rf "$d"
+            fi
+          done
 
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.11"
 
       - name: Build JRE JAR files
         run: |
           ./scripts/languagelist_updater.sh
 
-          mkdir out
-          # Build JRE JAR files (security manager, etc...)
-          gradle :jre_lwjgl3glfw:build --no-daemon
+          mkdir -p out
+          # Build JRE JAR files (GLFW stub, security manager, ...)
+          ./gradlew :jre_lwjgl3glfw:build --no-daemon
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -85,26 +181,26 @@ jobs:
       - name: Build Google Play .aab
         if: github.repository_owner == 'PojavLauncherTeam' && github.ref_name == 'v3_openjdk'
         run: |
-          gradle :app_pojavlauncher:bundleGplay
+          ./gradlew :app_pojavlauncher:bundleGplay --no-daemon
           mv app_pojavlauncher/build/outputs/bundle/gplay/app_pojavlauncher-gplay.aab out/app-gplay.aab
 
       - name: Build Debug .apk
         run: |
           # Build the launcher
-          gradle :app_pojavlauncher:assembleDebug
+          ./gradlew :app_pojavlauncher:assembleDebug --no-daemon
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
 
       - name: Build APK without runtime
         run: |
-          rm -r app_pojavlauncher/src/main/assets/components/jre
-          rm -r app_pojavlauncher/src/main/assets/components/jre-new
-          rm -r app_pojavlauncher/src/main/assets/components/jre-21
-          gradle assembleDebug
+          rm -rf "$JRE_DIR" "$JRE17_DIR" "$JRE21_DIR"
+          ./gradlew :app_pojavlauncher:assembleDebug --no-daemon
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug-noruntime.apk
+
       - name: Gen md5sums
         run: |
           md5sum out/app-debug.apk > out/app-debug.md5
           md5sum out/app-debug-noruntime.apk > out/app-debug-noruntime.md5
+          ls -lh out
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -113,6 +209,7 @@ jobs:
           path: out/app-debug.*
 
       - name: Upload AAB
+        if: github.repository_owner == 'PojavLauncherTeam' && github.ref_name == 'v3_openjdk'
         uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
@@ -134,4 +231,3 @@ jobs:
         with:
           name: app-debug-noruntime
           path: out/app-debug-noruntime.*
-
