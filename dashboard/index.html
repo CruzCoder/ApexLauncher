@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApexLauncher — Your worlds await</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-defs">
+<symbol id="home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21v-7h6v7"/></symbol>
+<symbol id="world" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+<symbol id="store" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5L4 9ZM5 9v10h14V9M9 19v-6h6v6"/><path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+<symbol id="settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1 2-2.5 2.5-2-.8-1.2 1.8h-3.6L9 18.7l-2 .8L4.5 17l.8-2L3.5 14v-4L5.3 9l-.8-2L7 4.5l2 .8L10.2 3h3.6L15 5.3l2-.8L19.5 7l-.8 2 1.8 1v4z"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-2 7-2 9h16c0-2-2-2-2-9M10 21h4"/></symbol>
+<symbol id="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></symbol>
+<symbol id="cloud" viewBox="0 0 24 24"><path d="M6 18a4 4 0 0 1-.5-8A6 6 0 0 1 17 9a4.5 4.5 0 0 1 1 9H6Z"/></symbol>
+<symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+<symbol id="more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+</svg>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#home" aria-label="ApexLauncher home"><span class="brand-mark"><span></span></span><span class="brand-copy">APEX<span>LAUNCHER</span><small>YOUR WORLDS AWAIT</small></span></a>
+    <div class="nav-label">MENU</div>
+    <nav aria-label="Main navigation">
+      <button class="nav-item active" data-section="Home"><svg><use href="#home"/></svg><span>Home</span><i></i></button>
+      <button class="nav-item" data-section="Worlds"><svg><use href="#world"/></svg><span>Worlds</span></button>
+      <button class="nav-item" data-section="Marketplace"><svg><use href="#store"/></svg><span>Marketplace</span></button>
+      <button class="nav-item" data-section="Profile"><svg><use href="#user"/></svg><span>Profile</span></button>
+    </nav>
+    <div class="sidebar-bottom"><div class="nav-label">GENERAL</div><button class="nav-item" data-section="Settings"><svg><use href="#settings"/></svg><span>Settings</span></button>
+      <div class="server-status"><span class="status-dot"></span><span>All systems online<small>Version 2.4.1</small></span><span class="status-signal">⌁</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="breadcrumbs"><span>APEX LAUNCHER</span><span class="slash">/</span><strong id="crumb">HOME</strong></div><div class="top-actions"><span class="online"><span class="status-dot"></span> ONLINE</span><button class="icon-button notification" aria-label="Notifications"><svg><use href="#bell"/></svg><b></b></button><div class="divider"></div><button class="profile-button" aria-label="Open profile"><span class="avatar">A</span><span class="profile-text"><b>Alex Morgan</b><small>Level 28 Explorer</small></span><span class="down">⌄</span></button></div></header>
+    <div class="content">
+      <section class="welcome"><div><div class="eyebrow"><span></span> YOUR ADVENTURE STARTS HERE</div><h1>Welcome back, Alex <span>✦</span></h1><p>Ready to explore something extraordinary?</p></div><div class="date"><span class="date-icon">✧</span><div><strong>THE OVERWORLD</strong><small>Always an adventure</small></div></div></section>
+      <div class="dashboard-grid">
+        <div class="left-column">
+          <div class="section-heading"><div><span class="section-kicker">PICK UP WHERE YOU LEFT OFF</span><h2>Featured world <span>✦</span></h2></div><button class="text-button" id="all-worlds">All worlds <svg><use href="#chevron"/></svg></button></div>
+          <article class="hero-card"><div class="hero-image"></div><div class="hero-shade"></div><div class="hero-top"><span class="featured-pill"><span>✦</span> FEATURED WORLD</span><button class="hero-more" aria-label="World options"><svg><use href="#more"/></svg></button></div><div class="hero-content"><div class="hero-label"><span></span> YOUR NEXT ADVENTURE</div><h2>Echo Peaks</h2><p>Lose yourself in a world above the clouds.</p><div class="hero-bottom"><button class="play-button" id="play"><svg><use href="#play"/></svg> PLAY <span>NOW</span></button><div class="hero-meta"><span class="meta-icon">◇</span><span>Survival<br><small>GAME MODE</small></span></div><div class="hero-meta"><span class="meta-icon">◷</span><span>2 hours ago<br><small>LAST PLAYED</small></span></div></div></div><div class="hero-index"><b>01</b><span></span> 03</div></article>
+          <div class="under-hero"><span><span class="mini-spark">✦</span> A WORLD OF POSSIBILITIES</span><div class="slide-dots"><b></b><i></i><i></i></div><span>EXPLORE BEYOND <span class="arrow">↗</span></span></div>
+          <div class="quick-heading"><div><span class="section-kicker">JUMP RIGHT IN</span><h2>Quick access</h2></div><span class="quiet">Your adventures, one click away</span></div>
+          <div class="quick-grid"><button class="quick-card" data-section="Worlds"><span class="quick-icon cyan"><svg><use href="#world"/></svg></span><span><b>My Worlds</b><small>Explore your creations</small></span><svg class="quick-arrow"><use href="#chevron"/></svg></button><button class="quick-card" data-section="Marketplace"><span class="quick-icon purple"><svg><use href="#store"/></svg></span><span><b>Marketplace</b><small>Discover something new</small></span><svg class="quick-arrow"><use href="#chevron"/></svg></button></div>
+        </div>
+        <aside class="right-column">
+          <div class="section-heading right-heading"><div><span class="section-kicker">YOUR WORLD AT A GLANCE</span><h2>World status <span>✦</span></h2></div></div>
+          <section class="weather widget"><div class="widget-top"><span>VOXELIA WEATHER</span><span class="live"><i></i> LIVE</span></div><div class="weather-main"><div><div class="temperature">24<span>°C</span></div><p>Partly cloudy</p><small>Feels like a perfect day to play.</small></div><div class="weather-art"><span class="weather-sun"></span><svg><use href="#cloud"/></svg><i>✦</i></div></div><div class="weather-footer"><span>⌖ &nbsp; VOXELIA</span><span>H: 26° &nbsp; L: 18°</span></div></section>
+          <section class="recent widget"><div class="widget-title"><div><span class="section-kicker">KEEP THE STORY GOING</span><h3>Recently played</h3></div><button id="view-all" class="text-button">View all <svg><use href="#chevron"/></svg></button></div><button class="recent-item" data-world="Echo Peaks"><span class="thumb thumb-one"></span><span class="recent-text"><b>Echo Peaks</b><small>Survival <i>•</i> 2 hours ago</small></span><svg><use href="#chevron"/></svg></button><button class="recent-item" data-world="Crystal Caverns"><span class="thumb thumb-two"></span><span class="recent-text"><b>Crystal Caverns</b><small>Creative <i>•</i> Yesterday</small></span><svg><use href="#chevron"/></svg></button><button class="recent-item" data-world="Skyward Isles"><span class="thumb thumb-three"></span><span class="recent-text"><b>Skyward Isles</b><small>Survival <i>•</i> 3 days ago</small></span><svg><use href="#chevron"/></svg></button></section>
+          <section class="download widget"><div class="download-head"><span class="download-icon"><svg><use href="#download"/></svg></span><span class="download-title"><b>Updating world files</b><small id="download-status">Downloading assets...</small></span><button id="pause" aria-label="Pause update">Ⅱ</button></div><div class="progress-label"><span>DOWNLOAD PROGRESS</span><b>68%</b></div><div class="progress-track"><span></span></div><div class="download-foot"><span>1.36 GB <span>/ 2.00 GB</span></span><span id="download-speed">12.4 MB/s</span></div></section>
+        </aside>
+      </div>
+      <footer><span>✧ &nbsp; CRAFTED FOR ADVENTURE</span><span>APEX LAUNCHER <i>•</i> MADE FOR EXPLORERS</span></footer>
+    </div>
+  </main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body></html>
