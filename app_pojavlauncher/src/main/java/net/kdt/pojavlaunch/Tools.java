@@ -101,11 +101,11 @@ import java.util.Map;
 public final class Tools {
     public  static final float BYTE_TO_MB = 1024 * 1024;
     public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
-    public static String APP_NAME = "PojavLauncher";
+    public static String APP_NAME = "Apex Launcher";
 
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    public static final String URL_HOME = "https://pojavlauncherteam.github.io";
+    public static final String URL_HOME = "https://pojavlauncherteam.github.io"; // upstream docs, still the best reference
     public static String NATIVE_LIB_DIR;
     public static String DIR_DATA; //Initialized later to get context
     public static File DIR_CACHE;
@@ -116,7 +116,11 @@ public final class Tools {
 
     // New since 3.3.1
     public static String DIR_ACCOUNT_NEW;
-    public static String DIR_GAME_HOME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/PojavLauncher";
+    /** Name of the folder that holds the game data, inside /sdcard/games */
+    public static final String GAME_FOLDER_NAME = "ApexLauncher";
+    /** Legacy folder name, kept so that existing installs keep their worlds */
+    public static final String LEGACY_GAME_FOLDER_NAME = "PojavLauncher";
+    public static String DIR_GAME_HOME = resolveGameHomeDirectory();
     public static String DIR_GAME_NEW;
     public static String GAME_PROFILES_FILE;
 
@@ -136,11 +140,23 @@ public final class Tools {
     private static RenderersList sCompatibleRenderers;
 
 
+    /**
+     * Picks the game data folder: the new "ApexLauncher" one, unless a legacy
+     * "PojavLauncher" folder already exists and the new one does not.
+     * That way upgrading users keep their worlds and instances.
+     */
+    private static String resolveGameHomeDirectory() {
+        File legacy = new File(Environment.getExternalStorageDirectory(), "games/" + LEGACY_GAME_FOLDER_NAME);
+        File current = new File(Environment.getExternalStorageDirectory(), "games/" + GAME_FOLDER_NAME);
+        if (legacy.isDirectory() && !current.exists()) return legacy.getAbsolutePath();
+        return current.getAbsolutePath();
+    }
+
     private static File getPojavStorageRoot(Context ctx) {
         if(SDK_INT >= 29) {
             return ctx.getExternalFilesDir(null);
         }else{
-            return new File(Environment.getExternalStorageDirectory(),"games/PojavLauncher");
+            return new File(resolveGameHomeDirectory());
         }
     }
 

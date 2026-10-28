@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:fadeScrollbars="false"
-    android:scrollbarThumbVertical="@color/minebutton_color"
-    android:paddingVertical="@dimen/_14sdp"
+    android:scrollbarThumbVertical="@color/apex_accent"
     android:scrollbarSize="@dimen/padding_medium"
-    android:background="@color/background_bottom_bar"
+    android:background="@drawable/apex_dropdown_bg"
     android:divider="@null" />

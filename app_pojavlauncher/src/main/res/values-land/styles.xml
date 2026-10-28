@@ -8,6 +8,9 @@
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="colorAccent">@color/apex_accent</item>
+        <item name="android:colorAccent">@color/apex_accent</item>
+        <item name="android:windowBackground">@color/apex_bg</item>
 
         <item name="android:textSize">@dimen/_14ssp</item>
 

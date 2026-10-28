@@ -21,7 +21,8 @@ public class MineButton extends androidx.appcompat.widget.AppCompatButton {
 
 	public void init() {
 		setTypeface(ResourcesCompat.getFont(getContext(), R.font.noto_sans_bold));
-		setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.mine_button_background, null));
+		// NOTE(Apex): shared primary button look (gradient pill) across every screen
+		setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.apex_btn_primary, null));
 		setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._13ssp));
 	}
 

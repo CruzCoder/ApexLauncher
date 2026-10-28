@@ -10,3 +10,6 @@ app_pojavlauncher/.cxx/
 .vs/
 /curseforge_key.txt
 /app_pojavlauncher/libs/ltw-release.aar
+
+# Apex Launcher design workspace: keep derived assets, drop the huge raw renders
+/design/assets/*_raw.png

@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- ============================================================
+         Apex Launcher - "Aurora Glass" palette
+         Deep navy base, translucent glass surfaces, teal/violet aurora
+         accents. Legacy color names are kept (and remapped) so every
+         remaining Pojav-derived screen inherits the new look.
+         ============================================================ -->
+
+    <!-- Brand accent (teal -> cyan) -->
+    <color name="apex_accent">#2BD9C0</color>
+    <color name="apex_accent_light">#5FF0D9</color>
+    <color name="apex_accent_deep">#0E7F76</color>
+    <color name="apex_cyan">#23C7E8</color>
+
+    <!-- Secondary accents -->
+    <color name="apex_violet">#8B7CFF</color>
+    <color name="apex_coral">#FF7A59</color>
+
+    <!-- Deep surfaces -->
+    <color name="apex_bg">#080D16</color>
+    <color name="apex_scrim">#7A060B14</color>
+    <color name="apex_surface">#141C2B</color>
+    <color name="apex_surface_elev">#1B2536</color>
+    <color name="apex_nav_bg">#B30B1220</color>
+
+    <!-- Glass -->
+    <color name="apex_glass">#2B162032</color>
+    <color name="apex_glass_strong">#3D16203A</color>
+    <color name="apex_glass_stroke">#29FFFFFF</color>
+    <color name="apex_glass_stroke_strong">#40FFFFFF</color>
+    <color name="apex_glass_pressed">#4D2BD9C0</color>
+
+    <!-- Text -->
+    <color name="apex_text">#EAF2FF</color>
+    <color name="apex_text_dim">#9BACC6</color>
+    <color name="apex_text_faint">#6D7E96</color>
+    <color name="apex_divider">#1FFFFFFF</color>
+
+    <!-- Nav states -->
+    <color name="apex_nav_active">#2E2BD9C0</color>
+    <color name="apex_nav_active_stroke">#662BD9C0</color>
+
+    <!-- ================= legacy aliases (do not remove) ================= -->
     <color name="control_button_color">#4CC4C4C4</color>
     <color name="control_button_pressed_color">#4D000000</color>
 
-    <color name="minebutton_color">#57CC33</color>
-    <color name="background_app">#181818</color>
-    <color name="divider">@color/background_overlay</color>
-    <color name="background_overlay">#464646</color>
-    <color name="background_status_bar">#242424</color>
-    <color name="background_bottom_bar">#232323</color>
+    <color name="minebutton_color">#2BD9C0</color>
+    <color name="background_app">#080D16</color>
+    <color name="divider">#1FFFFFFF</color>
+    <color name="background_overlay">#24324A</color>
+    <color name="background_status_bar">#101827</color>
+    <color name="background_bottom_bar">#121A29</color>
 
-    <color name="primary_text">#FFFFFF</color>
-    <color name="secondary_text">#B2B2B2</color>
+    <color name="primary_text">#EAF2FF</color>
+    <color name="secondary_text">#9BACC6</color>
 </resources>

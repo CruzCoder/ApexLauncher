@@ -1,6 +1,21 @@
-<h1 align="center">PojavLauncher</h1>
+<h1 align="center">Apex Launcher</h1>
 
-<img src="https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/app_pojavlauncher/src/main/assets/pojavlauncher.png" align="left" width="130" height="150" alt="PojavLauncher logo">
+<img src="design/preview/apex-home-landscape.png" alt="Apex Launcher home screen" width="100%">
+
+**Apex Launcher** is a fork of [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)
+with a completely redesigned interface (**"Aurora Glass"**: landscape-first home screen, glass
+cards, hero instance card, navigation rail, recently-played list) and a rebranded identity.
+
+* Upstream project: PojavLauncher v3_openjdk — **discontinued**, see its successor
+  [Amethyst-Android](https://github.com/AngelAuraMC/Amethyst-Android).
+* License: **LGPLv3** (see `LICENSE`), original work by the PojavLauncher team and contributors.
+* Design notes and implementation status: [`APEX_REDESIGN.md`](APEX_REDESIGN.md)
+* Repository analysis: [`REPO_ANALYSIS.md`](REPO_ANALYSIS.md)
+
+Apex Launcher is not affiliated with Mojang or Microsoft. "Minecraft" is a trademark of
+Mojang Synergies AB.
+
+---
 
 [![Android CI](https://github.com/PojavLauncherTeam/PojavLauncher/workflows/Android%20CI/badge.svg)](https://github.com/PojavLauncherTeam/PojavLauncher/actions)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PojavLauncherTeam/PojavLauncher)](https://github.com/PojavLauncherTeam/PojavLauncher/actions)

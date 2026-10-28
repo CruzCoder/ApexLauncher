@@ -9,6 +9,11 @@
         <item name="android:navigationBarColor">@color/background_app</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 
+        <!-- Apex: brand accent used by every system widget (checkboxes, seek bars, links...) -->
+        <item name="colorAccent">@color/apex_accent</item>
+        <item name="android:colorAccent">@color/apex_accent</item>
+        <item name="android:colorEdgeEffect">@color/apex_accent</item>
+        <item name="android:windowBackground">@color/apex_bg</item>
         <item name="android:textSize">@dimen/_12ssp</item>
 
     </style>

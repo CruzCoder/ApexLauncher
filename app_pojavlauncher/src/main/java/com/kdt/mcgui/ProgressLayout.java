@@ -83,7 +83,9 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
         mLinearLayout = findViewById(R.id.progress_linear_layout);
         mTaskNumberDisplayer = findViewById(R.id.progress_textview);
         mFlipArrow = findViewById(R.id.progress_flip_arrow);
-        setBackgroundColor(getResources().getColor(R.color.background_bottom_bar));
+        // NOTE(Apex): glass card look, consistent with the home screen
+        setBackgroundResource(R.drawable.apex_glass_card);
+        setPadding(0, getResources().getDimensionPixelOffset(R.dimen.padding_heavy), 0, 0);
         setOnClickListener(this);
     }
 

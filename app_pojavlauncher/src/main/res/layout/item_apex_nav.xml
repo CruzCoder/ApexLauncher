@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/apex_nav_icon"
+        android:layout_width="@dimen/apex_nav_icon_size"
+        android:layout_height="@dimen/apex_nav_icon_size"
+        android:duplicateParentState="true"
+        android:importantForAccessibility="no"
+        android:tint="@color/apex_nav_icon_tint"
+        tools:src="@drawable/ic_nav_home" />
+
+    <TextView
+        android:id="@+id/apex_nav_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:duplicateParentState="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/apex_nav_text"
+        android:textSize="@dimen/apex_text_nav"
+        tools:text="Home" />
+</merge>

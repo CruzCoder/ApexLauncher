@@ -1,51 +1,442 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Apex Launcher - home screen (landscape).
+
+    Structure:
+      aurora backdrop -> left navigation rail -> header (brand + account)
+      -> hero instance card (center) -> info column (right) -> progress -> fragment overlay
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@color/apex_bg">
 
-    <com.kdt.mcgui.mcAccountSpinner
-        android:id="@+id/account_spinner"
+    <ImageView
+        android:id="@+id/apex_backdrop"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_52sdp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:importantForAccessibility="no"
+        android:src="@drawable/apex_background" />
 
-        android:dropDownWidth="@dimen/_250sdp"
-        android:dropDownVerticalOffset="@dimen/_52sdp"
-
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/setting_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_52sdp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_settings"
-        android:scaleType="fitCenter"
-        android:paddingVertical="@dimen/_8sdp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Holding most of the dynamic content -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container_fragment"
-
+    <View
+        android:id="@+id/apex_backdrop_scrim"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
+        android:layout_height="match_parent"
+        android:background="@color/apex_scrim" />
 
-
-    <com.kdt.mcgui.ProgressLayout
-        android:id="@+id/progress_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/apex_home_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent">
 
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <!-- ===================== navigation rail ===================== -->
+        <LinearLayout
+            android:id="@+id/apex_rail"
+            android:layout_width="@dimen/apex_rail_width"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/apex_gutter"
+            android:background="@drawable/apex_rail_bg"
+            android:clipToOutline="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_heavy"
+        android:paddingBottom="@dimen/padding_heavy"
+            android:paddingStart="@dimen/padding_moderate"
+        android:paddingEnd="@dimen/padding_moderate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/apex_logo"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginBottom="@dimen/padding_heavy"
+                android:contentDescription="@string/apex_brand"
+                android:src="@drawable/ic_apex_logo" />
 
+            <com.kdt.mcgui.ApexNavItem
+                android:id="@+id/apex_nav_home"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apex_rail_item_height"
+                app:apexNavIcon="@drawable/ic_nav_home"
+                app:apexNavLabel="@string/apex_nav_home" />
 
+            <com.kdt.mcgui.ApexNavItem
+                android:id="@+id/apex_nav_library"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apex_rail_item_height"
+                app:apexNavIcon="@drawable/ic_nav_library"
+                app:apexNavLabel="@string/apex_nav_library" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.kdt.mcgui.ApexNavItem
+                android:id="@+id/apex_nav_mods"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apex_rail_item_height"
+                app:apexNavIcon="@drawable/ic_nav_store"
+                app:apexNavLabel="@string/apex_nav_mods" />
+
+            <com.kdt.mcgui.ApexNavItem
+                android:id="@+id/apex_nav_controls"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apex_rail_item_height"
+                app:apexNavIcon="@drawable/ic_nav_controls"
+                app:apexNavLabel="@string/apex_nav_controls" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.kdt.mcgui.ApexNavItem
+                android:id="@+id/apex_nav_settings"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apex_rail_item_height"
+                app:apexNavIcon="@drawable/ic_nav_settings"
+                app:apexNavLabel="@string/apex_nav_settings" />
+        </LinearLayout>
+
+        <!-- ===================== header ===================== -->
+        <LinearLayout
+            android:id="@+id/apex_header"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/apex_header_height"
+            android:layout_marginEnd="@dimen/apex_gutter"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/apex_rail"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/apex_wordmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:letterSpacing="0.18"
+                    android:text="@string/apex_wordmark"
+                    android:textAllCaps="true"
+                    android:textColor="@color/apex_text"
+                    android:textSize="@dimen/apex_text_subtitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.75"
+                    android:letterSpacing="0.06"
+                    android:text="@string/apex_tagline"
+                    android:textColor="@color/apex_text_dim"
+                    android:textSize="@dimen/apex_text_caption" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.kdt.mcgui.mcAccountSpinner
+                android:id="@+id/account_spinner"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_42sdp"
+                android:background="@drawable/apex_chip"
+                android:dropDownWidth="@dimen/_250sdp"
+                android:dropDownVerticalOffset="@dimen/_44sdp" />
+        </LinearLayout>
+
+        <!-- ===================== hero instance card ===================== -->
+        <FrameLayout
+            android:id="@+id/apex_hero"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/apex_gutter"
+            android:background="@drawable/apex_glass_card_strong"
+            android:clipToOutline="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/apex_info_column"
+            app:layout_constraintStart_toEndOf="@+id/apex_rail"
+            app:layout_constraintTop_toBottomOf="@+id/apex_header">
+
+            <ImageView
+                android:id="@+id/apex_hero_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/apex_hero_art" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/apex_hero_scrim" />
+
+            <!-- invisible anchor used to drop the profile picker over the hero -->
+            <com.kdt.mcgui.mcVersionSpinner
+                android:id="@+id/mc_version_spinner"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:alpha="0"
+                android:importantForAccessibility="no" />
+
+            <!-- instance text block -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_margin="@dimen/apex_card_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/apex_hero_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apex_chip_active"
+                    android:fontFamily="@font/minecraft_ten"
+                    android:letterSpacing="0.04"
+                    android:paddingStart="@dimen/_9sdp"
+        android:paddingEnd="@dimen/_9sdp"
+                    android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_3sdp"
+                    android:text="@string/apex_hero_tag_current"
+                    android:textAllCaps="true"
+                    android:textColor="@color/apex_accent_light"
+                    android:textSize="@dimen/apex_text_caption" />
+
+                <TextView
+                    android:id="@+id/apex_instance_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_moderate"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:maxLines="1"
+                    android:textColor="@color/apex_text"
+                    android:textSize="@dimen/apex_text_display"
+                    tools:text="Fabric 1.21.4" />
+
+                <TextView
+                    android:id="@+id/apex_instance_meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:alpha="0.9"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/apex_text_dim"
+                    android:textSize="@dimen/apex_text_subtitle"
+                    tools:text="Zink renderer · 4 GB RAM · Java 21" />
+
+            </LinearLayout>
+
+            <!-- action row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="@dimen/apex_card_padding"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/change_version_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/apex_btn_ghost"
+                    android:drawableStart="@drawable/ic_nav_library"
+                    android:drawablePadding="@dimen/padding_moderate"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:paddingStart="@dimen/padding_heavy"
+        android:paddingEnd="@dimen/padding_heavy"
+                    android:text="@string/apex_change_version"
+                    android:textAllCaps="false"
+                    android:textColor="@color/apex_text"
+                    android:textSize="@dimen/apex_text_body" />
+
+                <ImageButton
+                    android:id="@+id/edit_profile_button"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/padding_moderate"
+                    android:background="@drawable/apex_btn_ghost"
+                    android:contentDescription="@string/apex_edit_profile"
+                    android:padding="@dimen/_10sdp"
+                    android:src="@drawable/ic_edit_profile"
+                    android:tint="@color/apex_text" />
+
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/play_button"
+                    android:layout_width="@dimen/apex_play_width"
+                    android:layout_height="@dimen/apex_play_height"
+                    android:layout_marginStart="@dimen/padding_heavy"
+                    android:background="@drawable/apex_btn_play"
+                    android:drawableStart="@drawable/ic_apex_play_dark"
+                    android:drawablePadding="@dimen/padding_moderate"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:letterSpacing="0.12"
+                    android:text="@string/main_play"
+                    android:textAllCaps="true"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/apex_card_padding"
+                    android:textColor="@color/apex_bg"
+                    android:textSize="@dimen/apex_text_title" />
+
+            <ImageButton
+                android:id="@+id/apex_more_button"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_gravity="top|end"
+                android:layout_margin="@dimen/padding_heavy"
+                android:background="@drawable/apex_icon_button_bg"
+                android:contentDescription="@string/apex_more"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_more_horiz"
+                android:tint="@color/apex_text" />
+        </FrameLayout>
+
+        <!-- ===================== right information column ===================== -->
+        <LinearLayout
+            android:id="@+id/apex_info_column"
+            android:layout_width="@dimen/apex_right_column_width"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/apex_gutter"
+            android:layout_marginBottom="@dimen/apex_gutter"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apex_header">
+
+            <!-- session / memory card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apex_glass_card"
+                android:orientation="vertical"
+                android:padding="@dimen/apex_card_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_apex_clock"
+                        android:tint="@color/apex_accent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_moderate"
+                        android:letterSpacing="0.12"
+                        android:text="@string/apex_session"
+                        android:textAllCaps="true"
+                        android:textColor="@color/apex_text_dim"
+                        android:textSize="@dimen/apex_text_caption" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/apex_clock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:textColor="@color/apex_text"
+                    android:textSize="@dimen/apex_text_display"
+                    tools:text="14:32" />
+
+                <TextView
+                    android:id="@+id/apex_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/apex_text_dim"
+                    android:textSize="@dimen/apex_text_body"
+                    tools:text="Free RAM 3.2 GB of 8.0 GB · Zink" />
+            </LinearLayout>
+
+            <!-- recently played card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/padding_heavy"
+                android:layout_weight="1"
+                android:background="@drawable/apex_glass_card"
+                android:orientation="vertical"
+                android:padding="@dimen/apex_card_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:letterSpacing="0.12"
+                        android:text="@string/apex_recently_played"
+                        android:textAllCaps="true"
+                        android:textColor="@color/apex_text_dim"
+                        android:textSize="@dimen/apex_text_caption" />
+
+                    <TextView
+                        android:id="@+id/apex_view_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/padding_small"
+                        android:text="@string/apex_view_all"
+                        android:textColor="@color/apex_accent"
+                        android:textSize="@dimen/apex_text_body" />
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/padding_moderate"
+                    android:layout_weight="1"
+                    android:fillViewport="true"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/apex_recent_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
+
+            <com.kdt.mcgui.ProgressLayout
+                android:id="@+id/progress_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_heavy" />
+        </LinearLayout>
+
+        <!-- fragments (settings, installers, mod store, ...) -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

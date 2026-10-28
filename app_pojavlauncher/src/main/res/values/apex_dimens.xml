@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Apex design tokens. sdp/ssp scale with screen size (portrait-sdp library). -->
+    <dimen name="apex_rail_width">@dimen/_86sdp</dimen>
+    <dimen name="apex_rail_item_height">@dimen/_54sdp</dimen>
+    <dimen name="apex_rail_item_icon">@dimen/_22sdp</dimen>
+    <dimen name="apex_gutter">@dimen/_12sdp</dimen>
+    <dimen name="apex_card_radius">20dp</dimen>
+    <dimen name="apex_card_padding">@dimen/_14sdp</dimen>
+    <dimen name="apex_card_stroke">1dp</dimen>
+    <dimen name="apex_right_column_width">@dimen/_210sdp</dimen>
+    <dimen name="apex_hero_min_height">@dimen/_300sdp</dimen>
+    <dimen name="apex_play_height">@dimen/_52sdp</dimen>
+    <dimen name="apex_play_width">@dimen/_150sdp</dimen>
+    <dimen name="apex_avatar_size">@dimen/_34sdp</dimen>
+    <dimen name="apex_header_height">@dimen/_52sdp</dimen>
+    <dimen name="apex_nav_icon_size">@dimen/_20sdp</dimen>
+
+    <dimen name="apex_text_display">@dimen/_30ssp</dimen>
+    <dimen name="apex_text_title">@dimen/_20ssp</dimen>
+    <dimen name="apex_text_subtitle">@dimen/_13ssp</dimen>
+    <dimen name="apex_text_body">@dimen/_11ssp</dimen>
+    <dimen name="apex_text_caption">@dimen/_9ssp</dimen>
+    <dimen name="apex_text_nav">@dimen/_9ssp</dimen>
+
+    <!-- Portrait layout tokens -->
+    <dimen name="apex_bottom_bar_height">@dimen/_58sdp</dimen>
+</resources>

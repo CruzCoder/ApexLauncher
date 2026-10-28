@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_moderate"
+    android:background="@drawable/apex_chip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_moderate">
+
+    <ImageView
+        android:id="@+id/apex_recent_icon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:importantForAccessibility="no"
+        tools:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_moderate"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/apex_recent_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/noto_sans_bold"
+            android:textColor="@color/apex_text"
+            android:textSize="@dimen/apex_text_body"
+            tools:text="Fabric 1.21.4" />
+
+        <TextView
+            android:id="@+id/apex_recent_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/apex_text_faint"
+            android:textSize="@dimen/apex_text_caption"
+            tools:text="2 hours ago" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/apex_recent_play"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/apex_icon_button_bg"
+        android:contentDescription="@string/main_play"
+        android:padding="@dimen/_7sdp"
+        android:src="@drawable/ic_apex_play"
+        android:tint="@color/apex_accent" />
+</LinearLayout>
