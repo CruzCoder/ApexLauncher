@@ -191,12 +191,11 @@ jobs:
           # errors stay readable from the checks API even when the raw log blob
           # cannot be fetched.
           if ! ./gradlew :app_pojavlauncher:assembleDebug --no-daemon 2>&1 | tee /tmp/build.log; then
-            {
-              echo "## assembleDebug failed"
-              echo '```'
-              grep -nE "error:|e: |FAILURE|Execution failed|AAPT|Android resource|What went wrong" -A 6 /tmp/build.log | head -200
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
+            esc() { sed 's/%/%25/g' | awk 'BEGIN{ORS=""}{print $0 "%0A"}'; }
+            echo "== build errors =="
+            grep -nE "error:|e: |FAILURE:|Execution failed|Android resource|AAPT|What went wrong|Unresolved" -A 5 /tmp/build.log | head -80
+            echo "::error title=gradle-error::$(grep -nE "error:|e: |FAILURE:|Execution failed|Android resource|AAPT|What went wrong|Unresolved" -A 5 /tmp/build.log | head -70 | esc)"
+            echo "::error title=gradle-tail::$(tail -45 /tmp/build.log | esc)"
             exit 1
           fi
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
