@@ -12,4 +12,40 @@
 
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#B2B2B2</color>
+
+    <!-- ======================================================================
+         Apex dashboard theme : "Midnight Amethyst"
+         A dark, glassy take on the launcher home screen. Violet accent with a
+         mint secondary, layered over a blurred night-time landscape.
+         ====================================================================== -->
+
+    <!-- Backdrop -->
+    <color name="apex_bg">#0B0A12</color>
+    <color name="apex_scrim">#B3080710</color>
+    <color name="apex_scrim_clear">#1A080710</color>
+
+    <!-- Glass surfaces -->
+    <color name="apex_card">#1FFFFFFF</color>
+    <color name="apex_card_strong">#26000000</color>
+    <color name="apex_card_stroke">#2EFFFFFF</color>
+    <color name="apex_card_stroke_soft">#1AFFFFFF</color>
+    <color name="apex_rail">#1A0B0A12</color>
+
+    <!-- Accents -->
+    <color name="apex_accent">#9B8CFF</color>
+    <color name="apex_accent_deep">#6C5CE7</color>
+    <color name="apex_accent_soft">#4D9B8CFF</color>
+    <color name="apex_accent_tint">#339B8CFF</color>
+    <color name="apex_mint">#5CE1C4</color>
+    <color name="apex_mint_tint">#335CE1C4</color>
+    <color name="apex_on_accent">#0C0A18</color>
+
+    <!-- Text -->
+    <color name="apex_text_primary">#F5F2FF</color>
+    <color name="apex_text_secondary">#BEB8D6</color>
+    <color name="apex_text_tertiary">#8A84A3</color>
+
+    <!-- Interaction -->
+    <color name="apex_ripple">#33FFFFFF</color>
+    <color name="apex_ripple_accent">#4D9B8CFF</color>
 </resources>

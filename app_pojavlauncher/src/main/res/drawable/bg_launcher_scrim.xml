@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Darkens the wallpaper so glass panels and text stay readable everywhere. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="@color/apex_scrim_clear"
+        android:centerColor="#8C080710"
+        android:endColor="@color/apex_scrim"
+        android:type="linear" />
+</shape>

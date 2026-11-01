@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ApexLauncher · Your Space — UI preview</title>
+<style>
+  :root{
+    --bg:#0B0A12;
+    --accent:#9B8CFF;
+    --accent-deep:#6C5CE7;
+    --mint:#5CE1C4;
+    --card:rgba(255,255,255,.12);
+    --panel:rgba(0,0,0,.15);
+    --stroke:rgba(255,255,255,.18);
+    --stroke-soft:rgba(255,255,255,.10);
+    --text:#F5F2FF;
+    --text2:#BEB8D6;
+    --text3:#8A84A3;
+    --onaccent:#0C0A18;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#06050B;color:var(--text);font-family:var(--font)}
+  body{padding:32px 20px 64px}
+  .page-head{max-width:1180px;margin:0 auto 22px}
+  .page-head h1{font-size:22px;margin:0 0 6px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+  .page-head h1 span{color:var(--accent)}
+  .page-head p{margin:0;color:var(--text2);font-size:13.5px;line-height:1.6}
+  .page-head code{background:rgba(255,255,255,.08);padding:1px 5px;border-radius:5px;font-size:12px;color:#E7E2FF}
+  .swatches{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .sw{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text3);background:rgba(255,255,255,.04);border:1px solid var(--stroke-soft);padding:5px 9px;border-radius:99px}
+  .sw i{width:11px;height:11px;border-radius:3px;display:block}
+
+  .frames{max-width:1180px;margin:0 auto;display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+  .frame-wrap{flex:1 1 620px;min-width:320px}
+  .frame-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:9px}
+  .frame-label b{color:var(--mint);font-weight:700}
+
+  /* ---------- Landscape device ---------- */
+  .device-land{container-type:inline-size}
+  .ls{
+    position:relative;width:100%;aspect-ratio:1573/700;border-radius:22px;overflow:hidden;
+    background:#0B0A12 url("bg.jpg") center/cover no-repeat;
+    box-shadow:0 30px 70px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.06);
+    font-size:1.15cqw;
+  }
+  .ls::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg, rgba(8,7,16,.55) 0%, rgba(8,7,16,.25) 45%, rgba(8,7,16,.72) 100%);
+    pointer-events:none;
+  }
+  .ls > *{position:relative;z-index:2}
+  .ls-rail{
+    position:absolute;left:1.1em;top:1.6em;bottom:1.6em;width:3.6em;
+    display:flex;flex-direction:column;align-items:center;gap:.45em;padding:.7em .45em;
+    background:rgba(11,10,18,.30);border:1px solid var(--stroke-soft);border-radius:1.7em;
+    backdrop-filter:blur(14px);
+  }
+  .ricon{
+    width:2.5em;height:2.5em;border-radius:.95em;display:grid;place-items:center;
+    border:0;background:transparent;color:var(--text2);cursor:pointer;padding:0;
+  }
+  .ricon svg{width:1.25em;height:1.25em}
+  .ricon.active{background:linear-gradient(135deg,var(--accent),var(--accord,var(--accent-deep)));color:var(--onaccent);box-shadow:0 .2em .8em rgba(155,140,255,.45)}
+  .ricon:hover{background:rgba(255,255,255,.10)}
+
+  .ls-topbar{position:absolute;left:0;right:0;top:.9em;display:flex;justify-content:space-between;padding:0 1.2em 0 5.1em}
+  .chip{
+    display:flex;align-items:center;gap:.55em;background:var(--card);border:1px solid var(--stroke);
+    border-radius:1.5em;padding:.35em .8em .35em .45em;font-size:1.05em;backdrop-filter:blur(10px);
+  }
+  .chip .head{width:1.5em;height:1.5em;border-radius:.4em;overflow:hidden;display:block}
+  .chip .name{font-size:.95em;color:var(--text)}
+  .chip .caret{color:var(--text3);font-size:.8em}
+  .gear-float{
+    width:2.2em;height:2.2em;border-radius:50%;display:grid;place-items:center;
+    background:rgba(255,255,255,.16);border:1px solid var(--stroke);color:var(--text);font-size:1em;cursor:pointer;
+  }
+
+  .ls-content{
+    position:absolute;left:5.6em;right:14.6em;top:4.1em;bottom:1.4em;overflow:hidden;
+    display:flex;flex-direction:column;gap:.7em;padding-right:.2em;
+  }
+  .eyebrow{font-size:.86em;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--text);margin:0}
+
+  .cards{display:flex;gap:.75em}
+  .card{
+    flex:1 1 0;display:flex;align-items:center;gap:.7em;padding:.85em .9em;min-width:0;
+    background:var(--card);border:1px solid var(--stroke);border-radius:1.35em;backdrop-filter:blur(12px);
+  }
+  .tile{width:2.7em;height:2.7em;border-radius:.85em;display:grid;place-items:center;flex:0 0 auto}
+  .tile svg{width:1.35em;height:1.35em}
+  .tile.mint{background:rgba(92,225,196,.20);border:1px solid rgba(92,225,196,.30);color:var(--mint)}
+  .tile.accent{background:rgba(155,140,255,.20);border:1px solid rgba(155,140,255,.35);color:var(--accent)}
+  .tile.neutral{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:var(--text)}
+  .card b{display:block;font-size:1.05em;line-height:1.25}
+  .card span{display:block;font-size:.83em;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .panel{
+    background:var(--card);border:1px solid var(--stroke);border-radius:1.5em;padding:.95em 1.05em;
+    backdrop-filter:blur(12px);
+  }
+  .panel .label{font-size:.8em;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--text3)}
+  .panel .sub{font-size:.82em;color:var(--text2);margin-top:.15em}
+  .instance{display:flex;align-items:center;gap:.8em;margin-top:.55em}
+  .block{width:2.6em;height:2.6em;flex:0 0 auto}
+  .inst-name{font-size:1.6em;font-weight:800;letter-spacing:.01em;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .inst-arrow{color:var(--text3);font-size:.9em;margin-left:.2em}
+  .gear-small{
+    width:2em;height:2em;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+    background:rgba(255,255,255,.16);border:1px solid var(--stroke);color:var(--text);cursor:pointer;font-size:1em;
+  }
+  .build{margin:.15em 0 0 3.4em;font-size:.85em;color:var(--text2)}
+  .play{
+    display:flex;align-items:center;justify-content:center;gap:.5em;width:100%;
+    border:0;border-radius:1.5em;padding:.85em 1em;margin-top:.8em;cursor:pointer;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--mint) 100%);
+    color:var(--onaccent);font-family:inherit;font-weight:800;font-size:1.05em;
+    box-shadow:0 .4em 1.4em rgba(155,140,255,.30);
+  }
+  .play:active{transform:translateY(1px)}
+  .play svg{width:1em;height:1em}
+
+  .ls-player{
+    position:absolute;right:1.1em;top:1.4em;bottom:1.4em;width:11.6em;
+    display:flex;flex-direction:column;align-items:center;padding:1em .9em;
+    background:rgba(0,0,0,.22);border:1px solid var(--stroke-soft);border-radius:1.7em;backdrop-filter:blur(14px);
+  }
+  .ls-player .label{align-self:center;font-size:.8em;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);font-weight:800}
+  .avatar{width:6.2em;height:6.2em;margin-top:.5em;image-rendering:pixelated}
+  .pv{font-size:1.25em;font-weight:800;margin-top:.35em}
+  .pb{font-size:.85em;color:var(--mint);margin-top:.1em}
+  .ls-player .spacer{flex:1 1 auto}
+  .ls-player .play{margin-top:0;padding:.7em 1em;font-size:.98em}
+
+  /* ---------- Portrait device ---------- */
+  .device-port{container-type:inline-size;max-width:330px}
+  .pt{
+    position:relative;width:100%;aspect-ratio:9/19;border-radius:26px;overflow:hidden;
+    background:#0B0A12 url("bg.jpg") center/cover no-repeat;
+    box-shadow:0 30px 70px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.06);
+    font-size:3.4cqw;
+  }
+  .pt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,16,.35),rgba(8,7,16,.82));}
+  .pt > *{position:relative;z-index:2}
+  .pt-rail{
+    position:absolute;left:.9em;top:1em;bottom:1em;width:3.4em;display:flex;flex-direction:column;
+    align-items:center;gap:.5em;padding:.6em .4em;background:rgba(11,10,18,.32);
+    border:1px solid var(--stroke-soft);border-radius:1.6em;backdrop-filter:blur(12px);
+  }
+  .pt-rail .ricon{width:2.3em;height:2.3em;border-radius:.9em}
+  .pt-topbar{position:absolute;left:4.9em;right:.8em;top:1em;display:flex;justify-content:space-between;align-items:center}
+  .pt-content{
+    position:absolute;left:4.9em;right:.8em;top:4.3em;bottom:.8em;display:flex;flex-direction:column;gap:.7em;overflow:hidden;
+  }
+  .pt-content .eyebrow{font-size:.9em}
+  .player-strip{
+    display:flex;align-items:center;gap:.65em;padding:.7em .8em;border-radius:1.3em;
+    background:rgba(0,0,0,.22);border:1px solid var(--stroke-soft);backdrop-filter:blur(12px);
+  }
+  .player-strip .avatar{width:2.7em;height:2.7em;margin:0}
+  .player-strip .pv{font-size:1.05em;margin:0}
+  .player-strip .pb{font-size:.75em}
+  .player-strip .play{width:auto;margin:0 0 0 auto;padding:.55em .9em;font-size:.85em;border-radius:1.2em}
+  .pt .cards{flex-direction:row}
+  .pt .card{padding:.65em .6em;border-radius:1.1em;gap:.5em}
+  .pt .tile{width:2.2em;height:2.2em;border-radius:.7em}
+  .pt .card b{font-size:.9em}
+  .pt .card span{font-size:.68em}
+  .pt .panel{padding:.8em .85em;border-radius:1.25em}
+  .pt .instance{margin-top:.4em}
+  .pt .block{width:2.2em;height:2.2em}
+  .pt .inst-name{font-size:1.35em}
+  .pt .build{margin-left:2.9em;font-size:.72em}
+  .pt .play{padding:.7em;font-size:.95em}
+  .pt .you-row{display:flex;align-items:center;gap:.6em;padding:.65em .8em;border-radius:1.2em;background:var(--card);border:1px solid var(--stroke)}
+  .pt .you-row b{font-size:.9em;flex:1 1 auto}
+  .pt .you-row span{font-size:.68em;color:var(--text2)}
+
+  .chipbtn{
+    font-size:.8em;padding:.4em .7em;border-radius:.8em;background:rgba(11,10,18,.8);
+    border:1px solid var(--stroke);color:var(--text);white-space:nowrap;
+  }
+  .note{max-width:1180px;margin:26px auto 0;font-size:12.5px;color:var(--text3);line-height:1.7}
+  .note b{color:var(--text2)}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>ApexLauncher · <span>Your Space</span></h1>
+  <p>
+    Dark "Midnight Amethyst" theme — glass cards over a blurred night landscape, violet → mint accent.
+    Same options as before: account chip, instance picker, profile editor, modpacks, controls, logs, folder, .jar installer, play.
+    <br/>Live mock of <code>res/layout-land/fragment_launcher.xml</code> and <code>res/layout/fragment_launcher.xml</code>.
+  </p>
+  <div class="swatches">
+    <div class="sw"><i style="background:#9B8CFF"></i>accent #9B8CFF</div>
+    <div class="sw"><i style="background:#5CE1C4"></i>mint #5CE1C4</div>
+    <div class="sw"><i style="background:#0B0A12"></i>bg #0B0A12</div>
+    <div class="sw"><i style="background:rgba(255,255,255,.12)"></i>glass 12%</div>
+    <div class="sw"><i style="background:#BEB8D6"></i>text #BEB8D6</div>
+  </div>
+</div>
+
+<div class="frames">
+  <!-- ================= LANDSCAPE ================= -->
+  <div class="frame-wrap device-land">
+    <div class="frame-label">Landscape · <b>fragment_launcher.xml</b></div>
+    <div class="ls">
+      <div class="ls-topbar">
+        <div class="chip">
+          <svg class="head" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#e8f1ff"/><rect x="5" y="3" width="1" height="1" fill="#e8f1ff"/>
+            <rect x="2" y="3" width="1" height="1" fill="#3b6ea5" opacity=".65"/><rect x="5" y="3" width="1" height="1" fill="#3b6ea5" opacity=".65"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <span class="name">steve</span>
+          <span class="caret">▾</span>
+        </div>
+        <div class="gear-float" title="Settings">
+          <svg viewBox="0 0 24 24" width="60%" height="60%" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg>
+        </div>
+      </div>
+
+      <div class="ls-rail">
+        <button class="ricon active" title="Home"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+        <button class="ricon" title="News / wiki"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+        <button class="ricon" title="Explore content"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+        <button class="ricon" title="Execute a .jar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+        <button class="ricon" title="Custom controls"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6h10a4 4 0 0 1 4 4v4a3 3 0 0 1-3 3 3 3 0 0 1-2.6-1.5l-.6-1H9.2l-.6 1A3 3 0 0 1 6 17a3 3 0 0 1-3-3v-4a4 4 0 0 1 4-4m1 3v2H6v2h2v2h2v-2h2v-2H8V9zm8 .5a1 1 0 1 0 1 1 1 1 0 0 0-1-1m2.5 2.5a1 1 0 1 0 1 1 1 1 0 0 0-1-1"/></svg></button>
+        <button class="ricon" title="Game folder"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4h4l2 2h6v3H2V6h6zm-8 7h20v9H2z"/></svg></button>
+      </div>
+
+      <div class="ls-content">
+        <p class="eyebrow">Your space</p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+            <div><b>Socials</b><span>Friends and parties</span></div>
+          </div>
+          <div class="card">
+            <div class="tile accent"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+            <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+          </div>
+          <div class="card">
+            <div class="tile neutral"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4m0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4"/></svg></div>
+            <div><b>You</b><span>Profiles and account</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="label">Active world</div>
+          <div class="sub">Your selected game instance</div>
+          <div class="instance">
+            <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="32,4 60,18 32,32 4,18" fill="#8FD982" opacity=".55"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+              <polygon points="32,32 60,18 60,24 32,38" fill="#8FD982" opacity=".35"/>
+              <polygon points="4,18 32,32 32,38 4,24" fill="#8FD982" opacity=".2"/>
+            </svg>
+            <div class="inst-name">1.12.2</div>
+            <div class="inst-arrow">▾</div>
+            <div class="gear-small" title="Edit instance"><svg viewBox="0 0 24 24" width="55%" height="55%" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+          </div>
+          <div class="build">Vanilla · Minecraft 1.12.2</div>
+          <button class="play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play
+          </button>
+        </div>
+
+        <div class="panel" style="padding-top:.8em;padding-bottom:.8em">
+          <div class="label">Tasks</div>
+          <div style="display:flex;align-items:center;gap:.6em;margin-top:.15em">
+            <div class="sub" style="margin:0;flex:1 1 auto">Downloads and installs show up here</div>
+            <div class="chipbtn">Share log file</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ls-player">
+        <div class="label">Player</div>
+        <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+          <rect width="8" height="8" fill="#3b2a1a"/>
+          <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+          <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+          <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/>
+          <rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+          <rect x="2" y="3" width="1" height="1" fill="#3b6ea5" opacity=".7"/>
+          <rect x="5" y="3" width="1" height="1" fill="#3b6ea5" opacity=".7"/>
+          <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+          <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+          <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+        </svg>
+        <div class="pv">1.12.2</div>
+        <div class="pb">Minecraft 1.12.2</div>
+        <div class="spacer"></div>
+        <button class="play">Play
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PORTRAIT ================= -->
+  <div class="frame-wrap device-port">
+    <div class="frame-label">Portrait · <b>fragment_launcher.xml</b></div>
+    <div class="pt">
+      <div class="pt-topbar">
+        <div class="chip" style="font-size:.85em">
+          <svg class="head" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#e8f1ff"/><rect x="5" y="3" width="1" height="1" fill="#e8f1ff"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+          </svg>
+          <span class="name">steve</span><span class="caret">▾</span>
+        </div>
+        <div class="gear-float" style="width:1.9em;height:1.9em" title="Settings">
+          <svg viewBox="0 0 24 24" width="60%" height="60%" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg>
+        </div>
+      </div>
+
+      <div class="pt-rail">
+        <button class="ricon active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+        <button class="ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+        <button class="ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+        <button class="ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+        <button class="ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6h10a4 4 0 0 1 4 4v4a3 3 0 0 1-3 3 3 3 0 0 1-2.6-1.5l-.6-1H9.2l-.6 1A3 3 0 0 1 6 17a3 3 0 0 1-3-3v-4a4 4 0 0 1 4-4m1 3v2H6v2h2v2h2v-2h2v-2H8V9z"/></svg></button>
+        <button class="ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4h4l2 2h6v3H2V6h6zm-8 7h20v9H2z"/></svg></button>
+      </div>
+
+      <div class="pt-content">
+        <p class="eyebrow">Your space</p>
+
+        <div class="player-strip">
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+          </svg>
+          <div>
+            <div class="pv">1.12.2</div>
+            <div class="pb">Minecraft 1.12.2</div>
+          </div>
+          <button class="play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play
+          </button>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+            <div><b>Socials</b><span>Friends</span></div>
+          </div>
+          <div class="card">
+            <div class="tile accent"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+            <div><b>Explore</b><span>Modpacks</span></div>
+          </div>
+        </div>
+
+        <div class="you-row">
+          <div class="tile neutral"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4m0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4"/></svg></div>
+          <b>You</b><span>Profiles</span>
+        </div>
+
+        <div class="panel">
+          <div class="label">Active world</div>
+          <div class="sub">Your selected game instance</div>
+          <div class="instance">
+            <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+            <div class="inst-name">1.12.2</div>
+            <div class="inst-arrow">▾</div>
+          </div>
+          <div class="build">Vanilla · Minecraft 1.12.2</div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+
+        <div class="panel" style="padding-top:.6em;padding-bottom:.6em">
+          <div class="label">Tasks</div>
+          <div style="display:flex;align-items:center;gap:.5em;margin-top:.15em">
+            <div class="sub" style="margin:0;flex:1 1 auto">Downloads show up here</div>
+            <div class="chipbtn">Logs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="note">
+  <b>Theme:</b> Midnight Amethyst — dark by design. Glass surfaces at 12% white, 1dp hairline strokes,
+  22–24dp radii, violet→mint gradient on the primary action only. Accent swap = two colours in
+  <code>res/values/colors.xml</code>. Wallpaper: <code>res/drawable-nodpi/bg_launcher_space.jpg</code>.
+</p>
+
+</body>
+</html>

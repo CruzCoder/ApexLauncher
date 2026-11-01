@@ -1,153 +1,448 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Apex launcher dashboard, landscape : icon rail - "Your space" - player card -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_menu_main"
-    android:gravity="top"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@color/background_app">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <!-- ================= Left icon rail ================= -->
+    <LinearLayout
+        android:id="@+id/rail_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@drawable/bg_rail_glass"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/_background_display_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageButton
+            android:id="@+id/rail_home"
+            style="@style/ApexRailButtonActive"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:contentDescription="@string/dashboard_cd_home"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_apex_home" />
+
+        <ImageButton
+            android:id="@+id/news_button"
+            style="@style/ApexRailButton"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:contentDescription="@string/dashboard_cd_news"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_menu_news" />
+
+        <ImageButton
+            android:id="@+id/explore_button"
+            style="@style/ApexRailButton"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:contentDescription="@string/dashboard_cd_explore"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_apex_explore" />
+
+        <ImageButton
+            android:id="@+id/install_jar_button"
+            style="@style/ApexRailButton"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:contentDescription="@string/dashboard_cd_install"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_apex_plus" />
+
+        <ImageButton
+            android:id="@+id/custom_control_button"
+            style="@style/ApexRailButton"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:contentDescription="@string/dashboard_cd_controls"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_menu_custom_controls" />
+
+        <ImageButton
+            android:id="@+id/open_files_button"
+            style="@style/ApexRailButton"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:contentDescription="@string/dashboard_cd_folder"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/ic_folder" />
+    </LinearLayout>
+
+    <!-- ================= Player card (right) ================= -->
+    <LinearLayout
+        android:id="@+id/player_card"
+        android:layout_width="@dimen/_210sdp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@drawable/bg_card_glass_strong"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/ApexSectionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dashboard_player" />
+
+        <ImageView
+            android:id="@+id/dashboard_avatar"
+            android:layout_width="@dimen/_84sdp"
+            android:layout_height="@dimen/_84sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:contentDescription="@string/dashboard_player"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/dashboard_player_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/noto_sans_bold"
+            android:textColor="@color/apex_text_primary"
+            android:textSize="@dimen/_16ssp"
+            tools:text="1.12.2" />
+
+        <TextView
+            android:id="@+id/dashboard_player_build"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/apex_mint"
+            android:textSize="@dimen/_10ssp"
+            tools:text="Minecraft 1.12.2" />
+
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/center_guideline"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/play_button_side"
+            style="@style/ApexPlayButtonCompact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:drawableStart="@drawable/ic_apex_play_dark"
+            android:drawablePadding="@dimen/_6sdp"
+            android:text="@string/dashboard_play" />
+    </LinearLayout>
+
+    <!-- ================= Main content ================= -->
+    <ScrollView
+        android:id="@+id/dashboard_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/player_card"
+        app:layout_constraintStart_toEndOf="@id/rail_menu"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_14sdp">
+
+            <TextView
+                style="@style/ApexSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dashboard_title" />
+
+            <!-- Quick cards -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:clipToPadding="false"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/card_socials"
+                        android:layout_width="@dimen/_190sdp"
+                        android:layout_height="@dimen/_72sdp"
+                        android:background="@drawable/bg_card_glass"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/bg_icon_tile_mint"
+                            android:contentDescription="@string/dashboard_socials_title"
+                            android:padding="@dimen/_10sdp"
+                            android:src="@drawable/ic_apex_people"
+                            android:tint="@color/apex_mint" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/ApexCardTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_socials_title" />
+
+                            <TextView
+                                style="@style/ApexCardSubtitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:text="@string/dashboard_socials_sub" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_explore"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_72sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@drawable/bg_card_glass"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/bg_icon_tile_accent"
+                            android:contentDescription="@string/dashboard_explore_title"
+                            android:padding="@dimen/_10sdp"
+                            android:src="@drawable/ic_apex_explore"
+                            android:tint="@color/apex_accent" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/ApexCardTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_explore_title" />
+
+                            <TextView
+                                style="@style/ApexCardSubtitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:text="@string/dashboard_explore_sub" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_you"
+                        android:layout_width="@dimen/_170sdp"
+                        android:layout_height="@dimen/_72sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@drawable/bg_card_glass"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/bg_icon_tile_neutral"
+                            android:contentDescription="@string/dashboard_you_title"
+                            android:padding="@dimen/_10sdp"
+                            android:src="@drawable/ic_apex_person"
+                            android:tint="@color/apex_text_primary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/ApexCardTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_you_title" />
+
+                            <TextView
+                                style="@style/ApexCardSubtitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:text="@string/dashboard_you_sub" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Active world -->
+            <LinearLayout
+                android:id="@+id/card_active_world"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/bg_card_glass_flat"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5"/>
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/news_button"
-                style="@style/LauncherMenuButton.Universal"
-                android:layout_width="0dp"
-                android:drawableStart="@drawable/ic_menu_news"
-                android:text="@string/mcl_tab_wiki"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/social_divider"/>
-            <View
-                android:id="@+id/social_divider"
-                style="@style/LauncherFragment_Divider"
-                android:layout_marginVertical="@dimen/padding_heavy"
-                app:layout_constraintTop_toTopOf="@id/news_button"
-                app:layout_constraintStart_toStartOf="@id/center_guideline"
-                app:layout_constraintEnd_toEndOf="@id/center_guideline"
-                app:layout_constraintBottom_toBottomOf="@id/news_button"/>
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/discord_button"
-                style="@style/LauncherMenuButton.Universal"
-                android:layout_width="0dp"
-                android:drawableStart="@drawable/ic_discord"
-                android:text="@string/mcl_button_discord"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/social_divider"/>
+                android:padding="@dimen/_14sdp">
 
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/custom_control_button"
-                style="@style/LauncherMenuButton.Universal"
+                <TextView
+                    style="@style/ApexSectionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_active_world" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@string/dashboard_active_world_sub"
+                    android:textColor="@color/apex_text_secondary"
+                    android:textSize="@dimen/_10ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.kdt.mcgui.mcVersionSpinner
+                        android:id="@+id/mc_version_spinner"
+                        style="@style/ApexInstanceTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_56sdp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="@dimen/_4sdp"
+                        android:paddingStart="0dp"
+                        app:drawableEnd="@drawable/spinner_arrow"
+                        app:drawableEndPadding="@dimen/_1sdp"
+                        app:drawableEndSize="@dimen/_10sdp"
+                        app:drawableStartIntegerScaling="true"
+                        app:drawableStartSize="@dimen/_44sdp"
+                        tools:ignore="RtlSymmetry" />
+
+                    <ImageButton
+                        android:id="@+id/edit_profile_button"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/bg_gear_button"
+                        android:contentDescription="@string/dashboard_you_title"
+                        android:padding="@dimen/_9sdp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_menu_settings"
+                        android:tint="@color/apex_text_primary" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/dashboard_build_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_54sdp"
+                    android:textColor="@color/apex_text_secondary"
+                    android:textSize="@dimen/_11ssp"
+                    tools:text="Vanilla · Minecraft 1.12.2" />
+
+                <Button
+                    android:id="@+id/play_button"
+                    style="@style/ApexPlayButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:drawableStart="@drawable/ic_apex_play_dark"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:text="@string/dashboard_play" />
+            </LinearLayout>
+
+            <!-- Tasks -->
+            <LinearLayout
+                android:id="@+id/card_tasks"
                 android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_menu_custom_controls"
-                android:text="@string/mcl_option_customcontrol"
-                app:layout_constraintTop_toBottomOf="@id/news_button"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:background="@drawable/bg_card_glass_flat"
+                android:orientation="vertical"
+                android:padding="@dimen/_14sdp">
 
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/install_jar_button"
-                style="@style/LauncherMenuButton.Universal"
-                android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_menu_install_jar"
-                android:text="@string/main_install_jar_file"
-                app:layout_constraintTop_toBottomOf="@id/custom_control_button"
-                tools:layout_editor_absoluteX="0dp" />
+                <TextView
+                    style="@style/ApexSectionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_tasks" />
 
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/share_logs_button"
-                style="@style/LauncherMenuButton.Universal"
-                android:layout_width="match_parent"
-                android:drawableStart="@android:drawable/ic_menu_share"
-                android:text="@string/main_share_logs"
-                app:layout_constraintTop_toBottomOf="@id/install_jar_button" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <com.kdt.mcgui.LauncherMenuButton
-                android:id="@+id/open_files_button"
-                style="@style/LauncherMenuButton.Universal"
-                android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_folder"
-                android:text="@string/mcl_button_open_directory"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:text="@string/dashboard_tasks_hint"
+                        android:textColor="@color/apex_text_secondary"
+                        android:textSize="@dimen/_10ssp" />
 
-                app:layout_constraintTop_toBottomOf="@id/share_logs_button" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/share_logs_button"
+                        style="@style/ApexChipButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:text="@string/main_share_logs" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
-
-
-
-    <com.kdt.mcgui.mcVersionSpinner
-        android:id="@+id/mc_version_spinner"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-
-        android:background="@android:color/transparent"
-        android:drawableEnd="@drawable/spinner_arrow"
-        app:drawableEndPadding="@dimen/_1sdp"
-        app:drawableEndSize="@dimen/_12sdp"
-
-        app:drawableStartIntegerScaling="true"
-        app:drawableStartSize="@dimen/_36sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile_button"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/edit_profile_button"
-        android:layout_width="@dimen/_32sdp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/_8sdp"
-
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_edit_profile"
-        app:layout_constraintBottom_toBottomOf="@+id/mc_version_spinner"
-        app:layout_constraintEnd_toStartOf="@+id/play_button"
-        app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
-
-
-    <!-- This view is for cosmetic purpose only -->
-    <View
-        android:id="@+id/_background_display_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="-8dp"
-        android:background="@color/background_bottom_bar"
-
-        android:translationZ="-1dp"
-        app:layout_constraintTop_toTopOf="@id/mc_version_spinner" />
-
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/play_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:text="@string/main_play"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/mc_version_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

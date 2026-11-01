@@ -96,13 +96,9 @@ public class mcVersionSpinner extends ExtendedTextView {
 
     /** Initialize various behaviors */
     private void init(){
-        // Setup various attributes
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._12ssp));
+        // Text size, padding and drawable padding all come from the layout / theme so the
+        // dashboard can present the instance selector at its own scale.
         setGravity(Gravity.CENTER_VERTICAL);
-        int startPadding = getContext().getResources().getDimensionPixelOffset(R.dimen._17sdp);
-        int endPadding = getContext().getResources().getDimensionPixelOffset(R.dimen._5sdp);
-        setPaddingRelative(startPadding, 0, endPadding, 0);
-        setCompoundDrawablePadding(startPadding);
 
         int profileIndex;
         String extra_value = (String) ExtraCore.consumeValue(ExtraConstants.REFRESH_VERSION_SPINNER);

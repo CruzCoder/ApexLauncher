@@ -431,4 +431,38 @@
     <string name="bta_installer_nightly_versions">Nightly BTA versions</string>
     <string name="newdl_extracting_native_libraries">Extracting native libraries (%d/%d)</string>
     <string name="toast_not_available_demo">This is not available in demo mode</string>
+
+    <!-- Apex dashboard ("Your space") -->
+    <string name="dashboard_title">YOUR SPACE</string>
+    <string name="dashboard_socials_title">Socials</string>
+    <string name="dashboard_socials_sub">Friends and parties</string>
+    <string name="dashboard_explore_title">Explore content</string>
+    <string name="dashboard_explore_sub">Loaders and modpacks</string>
+    <string name="dashboard_you_title">You</string>
+    <string name="dashboard_you_sub">Profiles and account</string>
+    <string name="dashboard_active_world">ACTIVE WORLD</string>
+    <string name="dashboard_active_world_sub">Your selected game instance</string>
+    <string name="dashboard_tasks">TASKS</string>
+    <string name="dashboard_tasks_hint">Downloads and installs show up here</string>
+    <string name="dashboard_player">PLAYER</string>
+    <string name="dashboard_play">Play</string>
+    <string name="dashboard_build_format">%1$s · Minecraft %2$s</string>
+    <string name="dashboard_minecraft_format">Minecraft %1$s</string>
+    <string name="dashboard_loader_vanilla">Vanilla</string>
+    <string name="dashboard_loader_forge">Forge</string>
+    <string name="dashboard_loader_neoforge">NeoForge</string>
+    <string name="dashboard_loader_fabric">Fabric</string>
+    <string name="dashboard_loader_quilt">Quilt</string>
+    <string name="dashboard_loader_optifine">OptiFine</string>
+    <string name="dashboard_unknown_version">No instance selected</string>
+    <string name="dashboard_cd_home">Home</string>
+    <string name="dashboard_cd_explore">Explore content</string>
+    <string name="dashboard_cd_socials">Socials</string>
+    <string name="dashboard_cd_you">Your profile</string>
+    <string name="dashboard_cd_settings">Settings</string>
+    <string name="dashboard_cd_news">News and wiki</string>
+    <string name="dashboard_cd_install">Execute a .jar file</string>
+    <string name="dashboard_cd_controls">Custom controls</string>
+    <string name="dashboard_cd_folder">Open game folder</string>
+    <string name="dashboard_cd_logs">Share log file</string>
 </resources>
