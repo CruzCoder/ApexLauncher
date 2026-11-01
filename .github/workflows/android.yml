@@ -249,7 +249,7 @@ jobs:
       # downloaded from a plain, login-free URL:
       #   https://github.com/CruzCoder/ApexLauncher/releases/download/ui-preview/app-debug.apk
       - name: Publish preview APK
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref_name == 'arena/fd4dfb08-apexlauncher'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
