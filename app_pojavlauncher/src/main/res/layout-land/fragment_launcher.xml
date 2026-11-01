@@ -363,7 +363,7 @@
                         android:gravity="center_vertical"
                         android:paddingEnd="@dimen/_4sdp"
                         android:paddingStart="0dp"
-                        app:drawableEnd="@drawable/spinner_arrow"
+                        android:drawableEnd="@drawable/spinner_arrow"
                         app:drawableEndPadding="@dimen/_1sdp"
                         app:drawableEndSize="@dimen/_10sdp"
                         app:drawableStartIntegerScaling="true"
