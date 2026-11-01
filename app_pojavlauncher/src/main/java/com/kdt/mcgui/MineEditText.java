@@ -5,6 +5,8 @@ import android.util.*;
 import android.graphics.*;
 import android.widget.EditText;
 
+import net.kdt.pojavlaunch.R;
+
 public class MineEditText extends androidx.appcompat.widget.AppCompatEditText {
 	public MineEditText(Context ctx) {
 		super(ctx);
