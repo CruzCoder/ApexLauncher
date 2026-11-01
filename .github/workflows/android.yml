@@ -35,6 +35,9 @@ on:
 # so the 17/21 steps are best-effort with fallbacks and never fail the build.
 # ---------------------------------------------------------------------------
 
+permissions:
+  contents: write
+
 env:
   JRE_DIR: app_pojavlauncher/src/main/assets/components/jre
   JRE17_DIR: app_pojavlauncher/src/main/assets/components/jre-new
@@ -241,3 +244,20 @@ jobs:
         with:
           name: app-debug-noruntime
           path: out/app-debug-noruntime.*
+
+      # Publishes the freshly built APK on a rolling pre-release so it can be
+      # downloaded from a plain, login-free URL:
+      #   https://github.com/CruzCoder/ApexLauncher/releases/download/ui-preview/app-debug.apk
+      - name: Publish preview APK
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! gh release view ui-preview > /dev/null 2>&1; then
+            gh release create ui-preview \
+              --title "ApexLauncher UI preview (automated)" \
+              --notes "Automated debug build of the Apex dashboard UI. Bundled: JRE 8. Includes the latest commit of every branch that publishes here; check the run link in the release body." \
+              --prerelease
+          fi
+          gh release upload ui-preview out/app-debug.apk out/app-debug.md5 --clobber
+          echo "Asset: https://github.com/${{ github.repository }}/releases/download/ui-preview/app-debug.apk"
