@@ -186,8 +186,19 @@ jobs:
 
       - name: Build Debug .apk
         run: |
-          # Build the launcher
-          ./gradlew :app_pojavlauncher:assembleDebug --no-daemon
+          set -o pipefail
+          # Build the launcher. The log is mirrored into the step summary so build
+          # errors stay readable from the checks API even when the raw log blob
+          # cannot be fetched.
+          if ! ./gradlew :app_pojavlauncher:assembleDebug --no-daemon 2>&1 | tee /tmp/build.log; then
+            {
+              echo "## assembleDebug failed"
+              echo '```'
+              grep -nE "error:|e: |FAILURE|Execution failed|AAPT|Android resource|What went wrong" -A 6 /tmp/build.log | head -200
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
 
       - name: Build APK without runtime
