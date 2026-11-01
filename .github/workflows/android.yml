@@ -259,5 +259,12 @@ jobs:
               --notes "Automated debug build of the Apex dashboard UI. Bundled: JRE 8. Includes the latest commit of every branch that publishes here; check the run link in the release body." \
               --prerelease
           fi
-          gh release upload ui-preview out/app-debug.apk out/app-debug.md5 --clobber
-          echo "Asset: https://github.com/${{ github.repository }}/releases/download/ui-preview/app-debug.apk"
+          # Nicely named copy of the same build, for direct downloads:
+          #   .../releases/download/ui-preview/ApexLauncher1.0.apk
+          cp out/app-debug.apk out/ApexLauncher1.0.apk
+          md5sum out/ApexLauncher1.0.apk > out/ApexLauncher1.0.apk.md5
+          ls -lh out/ApexLauncher1.0.apk
+          gh release upload ui-preview \
+            out/app-debug.apk out/app-debug.md5 \
+            out/ApexLauncher1.0.apk out/ApexLauncher1.0.apk.md5 --clobber
+          echo "Asset: https://github.com/${{ github.repository }}/releases/download/ui-preview/ApexLauncher1.0.apk"

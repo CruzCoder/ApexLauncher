@@ -172,11 +172,31 @@
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp">
 
-            <TextView
-                style="@style/ApexSectionTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dashboard_title" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ApexSectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_title" />
+
+                <TextView
+                    android:id="@+id/dashboard_brand"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/apex_text_tertiary"
+                    android:textSize="@dimen/_9ssp"
+                    tools:text="ApexLauncher 1.0" />
+            </LinearLayout>
 
             <!-- Quick cards -->
             <HorizontalScrollView

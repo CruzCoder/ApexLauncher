@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">PojavLauncher (Minecraft: Java Edition for Android)</string>
-    <string name="app_short_name">PojavLauncher</string>
+    <string name="app_name">ApexLauncher</string>
+    <string name="app_short_name">ApexLauncher</string>
 
     <!-- Action bar part -->
 
@@ -465,4 +465,15 @@
     <string name="dashboard_cd_controls">Custom controls</string>
     <string name="dashboard_cd_folder">Open game folder</string>
     <string name="dashboard_cd_logs">Share log file</string>
+
+    <!-- Apex add-account flow -->
+    <string name="auth_title">Add account</string>
+    <string name="auth_subtitle">Sign in to play Minecraft: Java Edition</string>
+    <string name="auth_microsoft_title">Microsoft account</string>
+    <string name="auth_microsoft_sub">Xbox Live login · works on all servers</string>
+    <string name="auth_local_title">Local account</string>
+    <string name="auth_local_sub">Offline username · for cracked servers and testing</string>
+    <string name="auth_footnote">You can switch accounts anytime from the account chip on the dashboard.</string>
+    <string name="local_login_sign_in">Sign in</string>
+    <string name="dashboard_brand_version">ApexLauncher %1$s</string>
 </resources>

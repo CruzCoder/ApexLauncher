@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ApexLauncher · 10 UI themes</title>
+<style>
+  :root{--font:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#050409;color:#EDEBF7;font-family:var(--font)}
+  body{padding:34px 20px 80px}
+  .page{max-width:1500px;margin:0 auto}
+  .page>h1{font-size:23px;margin:0 0 8px;letter-spacing:.12em;text-transform:uppercase;font-weight:800}
+  .page>h1 span{background:linear-gradient(90deg,#9B8CFF,#5CE1C4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .page>p{margin:0 0 26px;color:#A9A4BE;font-size:13.5px;line-height:1.65;max-width:900px}
+  .page>p b{color:#EDEBF7}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:26px}
+  .variant{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:14px}
+  .variant>header{display:flex;align-items:center;gap:11px;margin:2px 2px 12px}
+  .variant .num{width:26px;height:26px;flex:0 0 auto;border-radius:9px;display:grid;place-items:center;font-size:12.5px;font-weight:800;background:rgba(255,255,255,.10);color:#EDEBF7}
+  .variant h3{margin:0;font-size:13.5px;letter-spacing:.02em}
+  .variant header p{margin:1px 0 0;font-size:11px;color:#8E89A6}
+  .dots{margin-left:auto;display:flex;gap:5px}
+  .dots i{width:12px;height:12px;border-radius:4px;display:block;border:1px solid rgba(0,0,0,.35)}
+
+  .dash{position:relative;width:100%;aspect-ratio:1573/700;border-radius:16px;overflow:hidden;
+        container-type:inline-size;font-size:1.18cqw;color:var(--ink);
+        background:#0B0A12 url("bg.jpg") center/cover no-repeat;
+        box-shadow:0 18px 44px rgba(0,0,0,.55)}
+  .dash::after{content:"";position:absolute;inset:0;background:var(--scrim)}
+  .dash>*{position:relative;z-index:2}
+  .rail{position:absolute;left:1em;top:1.5em;bottom:1.5em;width:3.5em;display:flex;flex-direction:column;
+        align-items:center;gap:.4em;padding:.65em .4em;background:var(--rail);
+        border:1px solid var(--stroke);border-radius:calc(var(--radius)*0.8);backdrop-filter:blur(var(--blur))}
+  .ri{width:2.4em;height:2.4em;border-radius:.85em;display:grid;place-items:center;border:0;background:transparent;
+      color:var(--ink2);padding:0;cursor:pointer}
+  .ri svg{width:1.2em;height:1.2em}
+  .ri.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--on);box-shadow:0 .2em .7em rgba(0,0,0,.35)}
+  .top{position:absolute;left:0;right:0;top:.85em;display:flex;justify-content:space-between;padding:0 1.1em 0 5em}
+  .chip{display:flex;align-items:center;gap:.5em;background:var(--card);border:1px solid var(--stroke);
+        border-radius:1.4em;padding:.3em .75em .3em .4em;backdrop-filter:blur(var(--blur))}
+  .chip .avatar{width:1.4em;height:1.4em;border-radius:.35em;margin:0}
+  .chip b{font-size:.92em;font-weight:600}
+  .chip em{font-style:normal;color:var(--ink3);font-size:.8em}
+  .gear{width:2.1em;height:2.1em;border-radius:50%;display:grid;place-items:center;background:var(--card);
+        border:1px solid var(--stroke);color:var(--ink)}
+  .gear svg{width:1.1em;height:1.1em}
+
+  .body{position:absolute;left:5.5em;right:14.3em;top:3.9em;bottom:1.2em;display:flex;flex-direction:column;gap:.7em;overflow:hidden}
+  .hd{display:flex;align-items:center;justify-content:space-between}
+  .hd h2{margin:0;font-size:1em;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+  .brand{font-size:.8em;color:var(--ink3)}
+  .cards{display:flex;gap:.7em}
+  .card{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:.65em;padding:.8em .85em;
+        background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);backdrop-filter:blur(var(--blur))}
+  .tile{width:2.5em;height:2.5em;border-radius:.8em;display:grid;place-items:center;flex:0 0 auto}
+  .tile svg{width:1.25em;height:1.25em}
+  .tile.mint{background:rgba(var(--acc2-rgb),.22);border:1px solid rgba(var(--acc2-rgb),.42);color:var(--acc2)}
+  .tile.acc{background:rgba(var(--acc-rgb),.22);border:1px solid rgba(var(--acc-rgb),.45);color:var(--acc)}
+  .tile.neu{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:var(--ink)}
+  .card b{display:block;font-size:1em;line-height:1.25}
+  .card span{display:block;font-size:.8em;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .panel{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);padding:.9em 1em;backdrop-filter:blur(var(--blur))}
+  .panel.slim{padding:.6em 1em}
+  .label{font-size:.78em;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--ink3)}
+  .sub{font-size:.8em;color:var(--ink2);margin-top:.1em}
+  .inst{display:flex;align-items:center;gap:.7em;margin-top:.45em}
+  .block{width:2.3em;height:2.3em;flex:0 0 auto}
+  .vname{font-size:1.55em;font-weight:800;flex:0 0 auto}
+  .arrow{color:var(--ink3);font-size:.85em}
+  .mini{margin-left:auto;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;
+        background:rgba(255,255,255,.14);border:1px solid var(--stroke);color:var(--ink)}
+  .mini svg{width:1em;height:1em}
+  .build{margin:.1em 0 0 3em;font-size:.8em;color:var(--ink2)}
+  .play{display:flex;align-items:center;justify-content:center;gap:.45em;width:100%;border:0;cursor:pointer;
+        border-radius:1.4em;padding:.75em 1em;margin-top:.7em;font-family:inherit;font-weight:800;font-size:1em;
+        background:linear-gradient(90deg,var(--acc),var(--acc2));color:var(--on);box-shadow:0 .3em 1em rgba(0,0,0,.28)}
+  .play svg{width:.95em;height:.95em}
+
+  .player{position:absolute;right:1em;top:1.3em;bottom:1.3em;width:11.4em;display:flex;flex-direction:column;
+          align-items:center;padding:.9em .85em;background:var(--card);border:1px solid var(--stroke);
+          border-radius:var(--radius);backdrop-filter:blur(var(--blur))}
+  .player .label{align-self:center}
+  .avatar{width:5.6em;height:5.6em;margin-top:.4em;image-rendering:pixelated}
+  .pv{font-size:1.2em;font-weight:800;margin-top:.3em}
+  .pb{font-size:.8em;color:var(--acc2);margin-top:.05em}
+  .sp{flex:1 1 auto}
+  .player .play{margin-top:0;padding:.65em .9em;font-size:.95em}
+  .dash .label,.dash .sub,.dash .brand,.dash .build{line-height:1.2}
+
+  .variant.light .dash{box-shadow:0 18px 44px rgba(40,50,90,.18)}
+
+  .hint{max-width:1500px;margin:30px auto 0;padding:16px 18px;border-radius:16px;background:rgba(155,140,255,.10);
+        border:1px solid rgba(155,140,255,.28);font-size:13px;color:#CFC9E8;line-height:1.65}
+  .hint b{color:#fff}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>10 UI themes · <span>Your Space</span></h1>
+  <p>Layout bilkul same hai (rail · Socials / Explore / You · Active World · Tasks · Player card), sirf colors, glass strength,
+     corner radius aur accent gradient badle hain. Jo number pasand aaye bolo — wahi theme launcher me apply karke
+     <b>ApexLauncher1.0.apk</b> bana dunga. Option <b>1</b> abhi installed build hai.</p>
+  <div class="grid">
+
+    <article class="variant">
+      <header>
+        <span class="num">1</span>
+        <div>
+          <h3>Midnight Amethyst</h3>
+          <p>current build</p>
+        </div>
+        <div class="dots">
+          <i style="background:#9B8CFF"></i><i style="background:#5CE1C4"></i>
+          <i style="background:#F5F2FF"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#9B8CFF;--acc2:#5CE1C4;--acc-rgb:155,140,255;--acc2-rgb:92,225,196;--on:#0C0A18;--ink:#F5F2FF;--ink2:#BEB8D6;--ink3:#8A84A3;--card:rgba(255,255,255,.12);--stroke:rgba(255,255,255,.18);--rail:rgba(11,10,18,.30);--radius:22px;--blur:12px;--scrim:linear-gradient(100deg, rgba(8,7,16,.55) 0%, rgba(8,7,16,.25) 45%, rgba(8,7,16,.74) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">2</span>
+        <div>
+          <h3>Emerald Grove</h3>
+          <p>classic Minecraft green</p>
+        </div>
+        <div class="dots">
+          <i style="background:#8BD450"></i><i style="background:#4FC43A"></i>
+          <i style="background:#F3FBF0"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#8BD450;--acc2:#4FC43A;--acc-rgb:139,212,80;--acc2-rgb:79,196,58;--on:#0B160A;--ink:#F3FBF0;--ink2:#C4D6BE;--ink3:#8EA487;--card:rgba(255,255,255,.10);--stroke:rgba(255,255,255,.17);--rail:rgba(8,16,10,.32);--radius:22px;--blur:12px;--scrim:linear-gradient(100deg, rgba(6,14,8,.58) 0%, rgba(6,14,8,.28) 45%, rgba(6,14,8,.76) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">3</span>
+        <div>
+          <h3>Sunset Ember</h3>
+          <p>warm orange → rose</p>
+        </div>
+        <div class="dots">
+          <i style="background:#FF9F45"></i><i style="background:#FF5E7E"></i>
+          <i style="background:#FFF3EC"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#FF9F45;--acc2:#FF5E7E;--acc-rgb:255,159,69;--acc2-rgb:255,94,126;--on:#1A0B06;--ink:#FFF3EC;--ink2:#E6C8B8;--ink3:#B08D7C;--card:rgba(255,255,255,.11);--stroke:rgba(255,210,180,.22);--rail:rgba(22,9,7,.34);--radius:20px;--blur:12px;--scrim:linear-gradient(100deg, rgba(26,10,7,.55) 0%, rgba(26,10,7,.22) 45%, rgba(26,10,7,.72) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">4</span>
+        <div>
+          <h3>Ocean Abyss</h3>
+          <p>deep blue / cyan</p>
+        </div>
+        <div class="dots">
+          <i style="background:#4FC3F7"></i><i style="background:#2E86FF"></i>
+          <i style="background:#EAF7FF"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#4FC3F7;--acc2:#2E86FF;--acc-rgb:79,195,247;--acc2-rgb:46,134,255;--on:#04121A;--ink:#EAF7FF;--ink2:#A9C7D9;--ink3:#7593A6;--card:rgba(255,255,255,.10);--stroke:rgba(160,220,255,.22);--rail:rgba(4,14,24,.36);--radius:22px;--blur:12px;--scrim:linear-gradient(100deg, rgba(3,12,20,.60) 0%, rgba(3,12,20,.26) 45%, rgba(3,12,20,.78) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">5</span>
+        <div>
+          <h3>Rose Quartz</h3>
+          <p>pink / magenta</p>
+        </div>
+        <div class="dots">
+          <i style="background:#FF9EC4"></i><i style="background:#C77DFF"></i>
+          <i style="background:#FFF0F7"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#FF9EC4;--acc2:#C77DFF;--acc-rgb:255,158,196;--acc2-rgb:199,125,255;--on:#1A0714;--ink:#FFF0F7;--ink2:#DDB6CC;--ink3:#A8839A;--card:rgba(255,255,255,.12);--stroke:rgba(255,200,230,.22);--rail:rgba(24,7,18,.32);--radius:26px;--blur:14px;--scrim:linear-gradient(100deg, rgba(22,7,18,.52) 0%, rgba(22,7,18,.20) 45%, rgba(22,7,18,.70) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">6</span>
+        <div>
+          <h3>Cyber Neon</h3>
+          <p>neon outline · sharp corners</p>
+        </div>
+        <div class="dots">
+          <i style="background:#00F0FF"></i><i style="background:#FF2BD6"></i>
+          <i style="background:#EAFDFF"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#00F0FF;--acc2:#FF2BD6;--acc-rgb:0,240,255;--acc2-rgb:255,43,214;--on:#04040A;--ink:#EAFDFF;--ink2:#9FB6C6;--ink3:#6B8494;--card:rgba(4,22,32,.38);--stroke:rgba(0,240,255,.35);--rail:rgba(3,10,16,.55);--radius:8px;--blur:8px;--scrim:linear-gradient(100deg, rgba(2,8,14,.72) 0%, rgba(2,8,14,.45) 45%, rgba(2,8,14,.85) 100%);--glow:0 0 18px rgba(0,240,255,.35);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">7</span>
+        <div>
+          <h3>Mono Slate</h3>
+          <p>monochrome · minimal</p>
+        </div>
+        <div class="dots">
+          <i style="background:#EDEDF5"></i><i style="background:#B9B9CE"></i>
+          <i style="background:#F4F4FA"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#EDEDF5;--acc2:#B9B9CE;--acc-rgb:237,237,245;--acc2-rgb:185,185,206;--on:#0A0A0F;--ink:#F4F4FA;--ink2:#A9A9B8;--ink3:#7C7C8C;--card:rgba(255,255,255,.08);--stroke:rgba(255,255,255,.15);--rail:rgba(8,8,12,.38);--radius:18px;--blur:10px;--scrim:linear-gradient(100deg, rgba(6,6,10,.66) 0%, rgba(6,6,10,.40) 45%, rgba(6,6,10,.80) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">8</span>
+        <div>
+          <h3>Amber Gold</h3>
+          <p>luxury black + gold</p>
+        </div>
+        <div class="dots">
+          <i style="background:#FFC65C"></i><i style="background:#FF9E2C"></i>
+          <i style="background:#FFF8E8"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#FFC65C;--acc2:#FF9E2C;--acc-rgb:255,198,92;--acc2-rgb:255,158,44;--on:#150E02;--ink:#FFF8E8;--ink2:#D9C69E;--ink3:#A08D68;--card:rgba(255,255,255,.09);--stroke:rgba(255,205,130,.25);--rail:rgba(16,11,4,.42);--radius:20px;--blur:12px;--scrim:linear-gradient(100deg, rgba(14,10,4,.62) 0%, rgba(14,10,4,.34) 45%, rgba(14,10,4,.80) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant">
+      <header>
+        <span class="num">9</span>
+        <div>
+          <h3>Aurora</h3>
+          <p>mint → violet · extra soft glass</p>
+        </div>
+        <div class="dots">
+          <i style="background:#7AF5C8"></i><i style="background:#9B8CFF"></i>
+          <i style="background:#EFFFFA"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#7AF5C8;--acc2:#9B8CFF;--acc-rgb:122,245,200;--acc2-rgb:155,140,255;--on:#05130F;--ink:#EFFFFA;--ink2:#AFDCD1;--ink3:#7FAEA4;--card:rgba(255,255,255,.15);--stroke:rgba(255,255,255,.24);--rail:rgba(6,18,16,.26);--radius:28px;--blur:18px;--scrim:linear-gradient(100deg, rgba(5,16,14,.45) 0%, rgba(5,16,14,.16) 45%, rgba(5,16,14,.66) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+    <article class="variant light">
+      <header>
+        <span class="num">10</span>
+        <div>
+          <h3>Frost Light</h3>
+          <p>light mode</p>
+        </div>
+        <div class="dots">
+          <i style="background:#5B6CFF"></i><i style="background:#1FC8A9"></i>
+          <i style="background:#121527"></i>
+        </div>
+      </header>
+      <div class="dash" style="--acc:#5B6CFF;--acc2:#1FC8A9;--acc-rgb:91,108,255;--acc2-rgb:31,200,169;--on:#FFFFFF;--ink:#121527;--ink2:#4C5473;--ink3:#7A8099;--card:rgba(255,255,255,.62);--stroke:rgba(255,255,255,.85);--rail:rgba(255,255,255,.45);--radius:24px;--blur:16px;--scrim:linear-gradient(100deg, rgba(235,240,255,.62) 0%, rgba(235,240,255,.34) 45%, rgba(235,240,255,.72) 100%);">
+        <div class="rail">
+          <button class="ri on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 2.6 11.1 3.9 12.7 12 6.1l8.1 6.6 1.3-1.6zM5.2 12.6v7.4c0 .8.6 1.4 1.4 1.4h3.2v-5h4.4v5h3.2c.8 0 1.4-.6 1.4-1.4v-7.4L12 7.1z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h13a3 3 0 0 1 3 3v13H6a2 2 0 0 1-2-2zm2 2v11h2V6zm4 0v3h6V6zm0 5v2h6v-2zm0 4v2h4v-2z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg></button>
+          <button class="ri"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></button>
+        </div>
+
+        <div class="top">
+          <span class="chip"><svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg><b>steve</b><em>▾</em></span>
+          <span class="gear"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></span>
+        </div>
+
+        <div class="body">
+          <div class="hd">
+            <h2>YOUR SPACE</h2>
+            <span class="brand">ApexLauncher 1.0</span>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="tile mint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3m0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13m8 0-.9.1c1.2.8 1.9 2 1.9 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5"/></svg></div>
+              <div><b>Socials</b><span>Friends and parties</span></div>
+            </div>
+            <div class="card">
+              <div class="tile acc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg></div>
+              <div><b>Explore content</b><span>Loaders and modpacks</span></div>
+            </div>
+            <div class="card">
+              <div class="tile neu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+              <div><b>You</b><span>Profiles and account</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Active world</div>
+            <div class="sub">Your selected game instance</div>
+            <div class="inst">
+              <svg class="block" viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,4 60,18 32,32 4,18" fill="#7BC96F"/>
+              <polygon points="4,18 32,32 32,58 4,44" fill="#7A5230"/>
+              <polygon points="60,18 32,32 32,58 60,44" fill="#5E3D21"/>
+            </svg>
+              <div class="vname">1.12.2</div>
+              <div class="arrow">▾</div>
+              <div class="mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5m7.4-2.9a7.9 7.9 0 0 0 0-1.2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1-.6L15.6 4h-4l-.4 2.7a8 8 0 0 0-1 .6l-2.4-1-2 3.4 2 1.6a7.9 7.9 0 0 0 0 1.2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1 .6l.4 2.9h4l.4-2.9a8 8 0 0 0 1-.6l2.4 1 2-3.4z"/></svg></div>
+            </div>
+            <div class="build">Vanilla · Minecraft 1.12.2</div>
+            <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+          </div>
+
+          <div class="panel slim">
+            <div class="label">Tasks</div>
+            <div class="sub">Downloads and installs show up here</div>
+          </div>
+        </div>
+
+        <div class="player">
+          <div class="label">Player</div>
+          <svg class="avatar" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">
+            <rect width="8" height="8" fill="#3b2a1a"/>
+            <rect x="1" y="1" width="6" height="1" fill="#c8956a"/>
+            <rect x="1" y="2" width="6" height="2" fill="#c8956a"/>
+            <rect x="2" y="3" width="1" height="1" fill="#f2f7ff"/><rect x="5" y="3" width="1" height="1" fill="#f2f7ff"/>
+            <rect x="1" y="4" width="6" height="1" fill="#c8956a"/>
+            <rect x="3" y="5" width="2" height="1" fill="#8a5f3c"/>
+            <rect x="1" y="6" width="6" height="1" fill="#6b4a2a"/>
+          </svg>
+          <div class="pv">1.12.2</div>
+          <div class="pb">Minecraft 1.12.2</div>
+          <div class="sp"></div>
+          <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="hint">
+    <b>Note:</b> koi bhi theme select karo — baaki sab (add-account screen, local login, settings) bhi usi palette me
+    convert ho jayega. Option 10 (Frost Light) light-mode hai, baaki sab dark. APK ka naam <b>ApexLauncher1.0.apk</b> hoga.
+  </div>
+</div>
+</body>
+</html>

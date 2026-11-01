@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.BuildConfig;
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -46,6 +47,7 @@ public class MainMenuFragment extends Fragment {
     private TextView mPlayerVersionText;
     private TextView mPlayerBuildText;
     private ImageView mPlayerAvatar;
+    private TextView mBrandText;
 
     public MainMenuFragment(){
         super(R.layout.fragment_launcher);
@@ -77,6 +79,7 @@ public class MainMenuFragment extends Fragment {
         mPlayerVersionText = view.findViewById(R.id.dashboard_player_version);
         mPlayerBuildText = view.findViewById(R.id.dashboard_player_build);
         mPlayerAvatar = view.findViewById(R.id.dashboard_avatar);
+        mBrandText = view.findViewById(R.id.dashboard_brand);
 
         // --- Navigation -----------------------------------------------------
         homeButton.setOnClickListener(v -> {
@@ -106,6 +109,9 @@ public class MainMenuFragment extends Fragment {
 
         playButton.setOnClickListener(v -> launchGame());
         sidePlayButton.setOnClickListener(v -> launchGame());
+
+        if(mBrandText != null)
+            mBrandText.setText(getString(R.string.dashboard_brand_version, BuildConfig.VERSION_NAME));
 
         updateDashboard();
     }
